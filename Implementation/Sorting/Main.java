@@ -46,6 +46,30 @@ public class Main {
 	}
 	
 	/** 
+	 * implementation of insertion sort;
+	 * 	sorts the array in an increasing order
+	 */
+	public static void insertionSort(int[] arr) {
+		// if the array has only one element, then it is sorted
+		if (arr.length < 1)
+			return;
+		// start with the second element; to its left, elements are sorted
+		for (int k = 1; k < arr.length; k++) {
+			int val = arr[k];
+			// take the current element and insert it in the sublist in its left, 
+			//   which is always sorted
+			for (int i = 0; i < k; i++) {
+				if (arr[i] > val) {
+					for (int j = k; j > i; j--)
+						arr[j] = arr[j-1];
+					arr[i] = val;
+					break;
+				}
+			}
+		}
+	}
+	
+	/** 
 	 * nice display for an array
 	 */
 	public static void printArr(int[] arr) {
@@ -60,8 +84,12 @@ public class Main {
 		// print the array before the sorting
 		printArr(arr);
 		// use selection sort to sort the array
-		selectionSort(arr);
+		//selectionSort(arr);
+		insertionSort(arr);
 		// print the array after the sorting
 		printArr(arr);
+		
+		
+		
 	}
 }
