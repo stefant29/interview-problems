@@ -34,4 +34,9 @@ public class Element<T> {
 			this.next = next;
 		}
 		
+		public boolean hasNext() {
+			return next!=null;
+		}
+
+		
 	}
