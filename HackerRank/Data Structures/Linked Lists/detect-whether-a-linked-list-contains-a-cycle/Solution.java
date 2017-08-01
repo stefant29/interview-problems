@@ -21,7 +21,7 @@ boolean hasCycle(Node head) {
     Node slow = head;
     
     // while the fast pointer reaches null, or it has no next node
-    while (fast != null || fast.next == null) {
+    while (fast != null && fast.next != null) {
         // if the fast pointer reaches the slow pointer or its next node,
         //    then there is a cycle
         if (fast == slow || fast.next == slow)
