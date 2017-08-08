@@ -1,5 +1,6 @@
 package problems;
 
+import java.util.HashSet;
 import java.util.Hashtable;
 
 public class Methods {
@@ -57,4 +58,85 @@ public class Methods {
 		
 		return '\0';
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	 * return a new string, where every character from "remove" 
+	 * is deleted in the string s
+	 * ex: "Battle of the Vowels" + "aeiou"  ->  "Bttle f th Vwls"
+	 */
+	/*
+	 * time complexity: O(n)
+	 * space complexity: O(n)
+	 */
+	public String removeCharsTrivial(String s, String remove) {
+		/*
+		 * use a hashset to keep the characters from "remove" for fast lookup
+		 */
+		HashSet<Character> rem = new HashSet<Character>();
+		for (int i = 0; i < remove.length(); i++)
+			rem.add(remove.charAt(i));
+		
+		/*
+		 * use a StringBuilder to store all chracters from "s" 
+		 * that are different than the characters in "remove"
+		 */
+		StringBuilder newString = new StringBuilder();
+		
+		/*
+		 * iterate through string "s" and if the character 
+		 * isn't part of "remove", add it to "newString"
+		 */
+		for (int i = 0; i < s.length(); i++) {
+			if (!rem.contains(s.charAt(i)))
+				newString.append(s.charAt(i));
+		}
+		
+		return newString.toString();
+	}
+	
+	/*
+	 * time complexity: O(n)
+	 * space complexity: O(n). If the string were already an array of chars, 
+	 *   then space complexity would be O(1), constant
+	 */
+	public String removeChars(String s, String remove) {
+		/* use a hashset to keep the characters from "remove" for fast lookup */
+		HashSet<Character> rem = new HashSet<Character>();
+		for (int i = 0; i < remove.length(); i++)
+			rem.add(remove.charAt(i));
+		
+		/* convert the string into an array to be able to move its elements */
+		char[] chars = s.toCharArray();
+		/* 
+		 * use two indexes for start of the free zone to copy
+		 * and end, the current position in the string
+		 */
+		int start = 0;
+		int end = 0;
+		while (end < s.length())
+			if (!rem.contains(s.charAt(end)))
+				chars[start++] = chars[end++];
+			else
+				end++;
+		
+		/* 
+		 * return a new string composed of the chars, from index 0 to "start",
+		 * which is the last copied character in the string
+		 */
+		return new String(chars, 0, start);
+	}
+	
+	
+	
+	
+	
+	
+	
 }

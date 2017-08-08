@@ -9,5 +9,10 @@ public class Main {
 		System.out.println("trivial:  total -> " + m.findNonrepeatedTrivial("teeter"));
 		System.out.println("bestComplexity:  total -> " + m.findNonrepeated("total"));
 		System.out.println("bestComplexity:  total -> " + m.findNonrepeated("teeter"));
+		
+		
+		/* ex2: remove given chars from a string" */
+		System.out.println("trivial: Remove aeiou from Battle of the Vowels -> " + m.removeCharsTrivial("Battle of the Vowels", "aeiou"));
+		System.out.println("betterComplexity: Remove aeiou from Battle of the Vowels -> " + m.removeChars("Battle of the Vowels", "aeiou"));
 	}
 }
