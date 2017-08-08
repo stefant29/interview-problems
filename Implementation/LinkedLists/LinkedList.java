@@ -24,6 +24,20 @@ public class LinkedList<T> {
 		aux.setNext(new Element<T>(data));
 	}
 	
+	public void add(Element<T> elem) {
+		if (head == null) {
+			head = elem;
+			return;
+		}
+		
+		Element<T> aux = head;
+		while (aux.hasNext()) {
+			aux = aux.getNext();
+		}
+		
+		aux.setNext(elem);
+	}
+	
 	public void removeStart() {
 		if (head == null)
 			return;
