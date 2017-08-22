@@ -1,0 +1,119 @@
+// given two strings, write a method to decide if one is a permutation of the other
+public class Solution {
+
+	/* check if two strings have an equal number of alphabetical characters */
+	public static boolean equalLengths(String s1, String s2) {
+		int i = 0;
+		int minLen = Math.min(s1.length(), s2.length());
+		int maxLen = Math.max(s1.length(), s2.length());
+		int countS1 = 0;
+		int countS2 = 0;
+		/* check each character until the end of the smaller string */
+		for (; i < minLen; i++) {
+			if (Character.toLowerCase(s1.charAt(i)) >= 'a' && 
+				Character.toLowerCase(s1.charAt(i)) <= 'z')
+				countS1++;
+			if (Character.toLowerCase(s2.charAt(i)) >= 'a' && 
+				Character.toLowerCase(s2.charAt(i)) <= 'z')
+				countS2++;
+		}
+		/* continue with the bigger string */
+		if (s1.length() > s2.length()) {
+			for (; i < maxLen; i++)
+				if (Character.toLowerCase(s1.charAt(i)) >= 'a' && 
+					Character.toLowerCase(s1.charAt(i)) <= 'z')
+					countS1++;
+		} else {
+			for (; i < maxLen; i++)
+				if (Character.toLowerCase(s2.charAt(i)) >= 'a' && 
+					Character.toLowerCase(s2.charAt(i)) <= 'z')
+					countS2++;
+		}
+
+		/* check if the strings contain an equal number of alphabetical characters */
+		if (countS1 == countS2)
+			return true;
+		return false;
+	}
+
+	/* check if a string is a permutation of another */
+	public static boolean checkEquals(String s1, String s2, int index1, int index2) {
+		/* iterate through the two strings until the end of them */
+		while (index1 < s1.length() && index2 < s2.length()) {
+			/* compare the characters at current index */
+			if (s1.charAt(index1) != s2.charAt(index2))
+				return false;
+			/* move to the next character */
+			index1++;
+			index2++;
+			/* move to the next letter, not next symbols: .,/'\012 */
+			while ( index1 < s1.length() && (Character.toLowerCase(s1.charAt(index1)) < 'a' 
+					|| Character.toLowerCase(s1.charAt(index1))> 'z'))
+				index1++;
+			while ( index2 < s2.length() && (Character.toLowerCase(s2.charAt(index2)) < 'a' 
+					|| Character.toLowerCase(s2.charAt(index2))> 'z'))
+				index2++;
+		}
+		
+		/* if index2 reached the end of the string2, start from beginning */
+		if (index2 == s2.length()) {
+			index2 = 0;
+			/* advance to the first alphabetical character */
+			while (s2.charAt(index2) < 'a' || s2.charAt(index2) > 'z')
+				++index2;
+			/* call the method again for new index2 */
+			return checkEquals(s1, s2, index1, index2);
+		}
+		
+		/* s2 is a permutation of s1 -> return true */
+		return true;
+	}
+
+	public static boolean isPermutation(String s1, String s2) {
+		/*
+		 * if the two strings do not have the same length,
+		 * they cannot be a permutation of one another
+		 */
+		if (!equalLengths(s1, s2))
+			return false;
+		
+		/* find index of the first alphabetical character */
+		int len = s2.length();
+		int index1 = 0;
+		char first = s1.charAt(index1);
+		while (first < 'a' || first > 'z')
+			first = s1.charAt(++index1);
+
+		/* search in the second string the first letter in the first string */
+		for (int index2 = index1 + 1; index2 < len; index2++) {
+			/* if the current character is not a letter, continue to the next one */
+			char crt = Character.toLowerCase(s2.charAt(index2));
+			if ( crt < 'a' || crt > 'z')
+				continue;
+			/* if the first letter from the first string is found, check for permutation */
+			if (first == crt)
+				if (checkEquals(s1, s2, index1, index2))
+					return true;
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		String s1 = "//..ab//cdef";
+		String s2 = "de//..afabc";
+		String s3 = "d/ef.a,bc";
+		String s4 = "abcdef";
+
+		System.out.println(equalLengths(s2, s1));
+		System.out.println(equalLengths(s3, s1));
+		System.out.println(equalLengths(s2, s3));
+		System.out.println();
+		
+		System.out.println(isPermutation(s3, s4));
+		System.out.println(isPermutation(s4, s3));
+		System.out.println(isPermutation(s1, s2));
+		System.out.println(isPermutation(s1, s3));
+		System.out.println(isPermutation(s2, s1));
+		System.out.println(isPermutation(s3, s1));
+	}
+}
