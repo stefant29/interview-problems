@@ -1,0 +1,84 @@
+// implement algorithm to determine if a string has all unique characters
+//   mistake1: import java.util.*    -> no ";" at the end
+//   mistake2: import java.util.*    -> no need for this
+//   mistake3: char lowerCase = Character.toLowerCase(s.charAt(i));
+
+public class Solution {
+	
+	/* 
+	 * This algo uses an additional DataStructure to store the number
+	 * of appearances of each letter in the alphabet in the given string
+	 * worse space complexity: O(26)
+	 * better time complexity: O(n) - linear
+	 */
+	public static boolean hasUniqueChars(String s) {
+		int len = s.length();
+		int[] countAlphabet = new int[26];
+		for (int i = 0; i < len; i++) {
+			/* convert current character to lowerCase character */
+			char c = Character.toLowerCase(s.charAt(i));
+			/* only if current symbol is a letter increment the counter */
+			if (c >= 'a' && c <= 'z')
+				countAlphabet[c -'a']++;
+		}
+
+		/* check if there is a letter with more than one appearance */
+		for (int i = 0; i < 26; i++)
+			/* if there is, then the letter is not unique in the given string */
+			if (countAlphabet[i] > 1)
+				return false;
+
+		/* all letters are unique in the given string */
+		return true;
+	}
+
+	/* 
+	 * This algo uses no additional DataStructure
+	 * better space complexity: O(1) - constant 
+	 * worse time complexity: O(n^2) - quadratic
+	 */
+	public static boolean hasUniqueCharsNoAditionalDS(String s) {
+		int len = s.length();
+		/* iterate through all characters of s */
+		for (int i = 0; i < len-1; i++) {
+			/* convert current character to lowerCase character */
+			char c1 = Character.toLowerCase(s.charAt(i));
+			/* if symbol is not a letter, continue to the next character */
+			if (c1 < 'a' || c1 > 'z')
+				continue;
+			/* 
+			 * check the rest of the characters to see 
+			 * if current character appears again 
+			 */
+			for (int j = i+1; j < len; j++) {
+				/* convert the other character to lowerCase */
+				char c2 = Character.toLowerCase(s.charAt(j));
+				/* if it is not a letter, continue */
+				if (c2 < 'a' || c2 > 'z')
+					continue;
+				/* if the two characters are the same, then c1 is not unique */
+				if (c1 == c2)
+					return false;
+			}
+		}
+		/* all characters are unique in the string */
+		return true;
+	}
+
+	public static void main(String[] args) {
+		String s1 = "abcdefabc";
+		String s2 = "abcdef";
+		String s3 = "..,ab...cd78e;'f.a";
+
+		/* test the implementation for both algorithms */
+		System.out.println(hasUniqueChars(s1));
+		System.out.println(hasUniqueChars(s2));
+		System.out.println(hasUniqueChars(s3));
+		
+		System.out.println();
+		
+		System.out.println(hasUniqueCharsNoAditionalDS(s1));
+		System.out.println(hasUniqueCharsNoAditionalDS(s2));
+		System.out.println(hasUniqueCharsNoAditionalDS(s3));
+	}
+}
