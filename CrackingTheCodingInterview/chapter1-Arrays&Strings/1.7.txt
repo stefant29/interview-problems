@@ -1,0 +1,81 @@
+// write an algorithm such that if an element in an MxN matrix is 0, 
+//   its entire row and column are set to 0
+
+public class Solution {
+	/* 
+	 * Given a matrix and an array of indexes, 
+	 *    replace all rows from the array with zeros 
+	 */
+	public static void setToZeroRows(int[][] mat, ArrayList<Integer> index, int nrCols) {
+		for (int i = 0; i < index.size(); i++)
+			for (int j = 0; j < nrCols; j++)
+				mat[index.get(i)][j] = 0;
+	}
+	/* 
+	 * Given a matrix and an array of indexes, 
+	 *    replace all columns from the array with zeros 
+	 */
+	public static void setToZeroCols(int[][] mat, ArrayList<Integer> index, int nrRows) {
+		for (int i = 0; i < index.size(); i++)
+			for (int j = 0; j < nrRows; j++)
+				mat[j][index.get(i)] = 0;
+	}
+	/* 
+	 * Given a matrix create arrays of indexes 
+	 *    where elements in the matrix are zeros.
+	 * Call methods to replace columns and rows with zeros.
+	 */
+	public static void findZeros(int[][] mat, int nrCols, int nrRows) {
+		ArrayList<Integer> indexCol = new ArrayList<Integer>();
+		ArrayList<Integer> indexRow = new ArrayList<Integer>();
+		for (int i = 0; i < nrRows; i++)
+			for (int j = 0; j < nrCols; j++)
+				/* 
+				 * if the element is zero, insert index i into Rows array,
+				 * and index j into Columns array 
+				 */
+				if (mat[i][j] == 0) {
+					indexCol.add(j);
+					indexRow.add(i);
+				}
+		setToZeroRows(mat, indexRow, nrCols);
+		setToZeroCols(mat, indexCol, nrRows);
+	}
+	
+	/* print a message and a matrix */
+	public static void printMatrix(String message, int[][] mat, int nrCols, int nrRows) {
+		if (message != null)
+			System.out.println(message);
+		for (int i = 0; i < nrRows; i++) {
+			for (int j = 0; j < nrCols; j++)
+				System.out.print(mat[i][j] + "\t");
+			System.out.println();
+		}
+	}
+
+	public static void main(String[] args) {
+		/* test the algorithm */
+		int[][] mat = {   { 20, 18, 22, 20, 16 },
+                          { 18, 20,  0, 21, 20 },
+                          { 16, 18, 16, 20, 24 },
+                          { 25, 24, 22, 24, 25 }    };
+		int nrRows = 4;
+		int nrCols = 5;
+		printMatrix("before:", mat, nrCols, nrRows);
+		findZeros(mat, nrCols, nrRows);
+		printMatrix("after:", mat, nrCols, nrRows);
+
+		System.out.println();
+		System.out.println();
+		
+		int[][] mat2 = {  	{  0, 18, 22, 20, 16 },
+			                { 18, 20,  0, 21, 20 },
+			                { 16, 18, 16, 20, 24 },
+			                { 25, 24, 22, 24,  0 }    };
+		nrRows = 4;
+		nrCols = 5;
+		printMatrix("before:", mat2, nrCols, nrRows);
+		findZeros(mat2, nrCols, nrRows);
+		printMatrix("after:", mat2, nrCols, nrRows);
+	}
+}
