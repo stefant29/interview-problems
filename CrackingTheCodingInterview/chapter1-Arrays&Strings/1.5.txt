@@ -1,0 +1,48 @@
+// implement a method to perform basic string compression: 
+// aabcccccaaa -> a2b1c5a3
+
+public class Solution {
+	public static String compressString(String s) {
+		/* use a stringBuilder to create the compressed string */
+		StringBuilder sb = new StringBuilder();
+
+		/* 
+		 * iterate through the string and count 
+		 *   the number of consecutive duplicates 
+		 */
+		for (int i = 0; i < s.length(); i++) {
+			int count = 1;
+			char crt = s.charAt(i);
+			/* 
+			 * while two consecutive characters are the same, 
+			 *   increment the counter 
+			 */
+			while (i+1 < s.length() && crt == s.charAt(i+1)) {
+				i++;
+				count++;
+			}
+			/* add the current character and how many times it appears */
+			sb.append(crt);
+			sb.append(count);
+		}
+		
+		/* 
+		 * return the compressed string if it is smaller; 
+		 *   if not, return the original string 
+		 */
+		return sb.length() < s.length() ? sb.toString() : s;
+	}
+
+	public static void main(String[] args) {
+		/* input to test the compression algorithm */
+		String s1 = "aabcccccaaa";
+		String s2 = "abcdefghij";
+		String s3 = "aabcbccccaaa";
+		String resultS1 = compressString(s1);
+		String resultS2 = compressString(s2);
+		String resultS3 = compressString(s3);
+		System.out.println(s1 + " \t converts to: \t " + resultS1);
+		System.out.println(s2 + " \t converts to: \t " + resultS2);
+		System.out.println(s3 + " \t converts to: \t " + resultS3);
+	}
+}
