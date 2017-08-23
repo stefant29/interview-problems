@@ -1,0 +1,67 @@
+// write a method to replace all spaces in a string with '%20'
+
+public class Solution {
+
+	/* copy the word to the right and insert '%20' before */
+	public static void moveSubstring(char[] s, int start, int last, int lengthCrtWord) {
+		/* copy "lengthCrtWord" characters from index "start" to "last" */
+		while (lengthCrtWord > 0) {
+			s[last--] = s[start--];
+			lengthCrtWord--;
+			//printString(s);
+		}
+		/* add '%20" in front of the substring */
+		s[last--] = '0';
+		s[last--] = '2';
+		s[last--] = '%';
+		//printString(s);
+	}
+	
+	/* replace the spaces with '%20' */
+	public static void replaceSpaces(char[] s, int realLength) {
+		/* find total number of spaces in the string */
+		int countSpaces = 0;
+		for (int i = 0; i < realLength; i++)
+			if (s[i] == ' ')
+				countSpaces++;
+		/* compute the last index of the new String */
+		int last = realLength + 2 * countSpaces - 1;
+
+		/* search from end to start the spaces and replace them with '%20' */
+		for (int i = realLength - 1; i >= 0; i--) {
+			int lengthCrtWord = i;
+			/* now i is the index of the space */
+			while (i >= 0 && s[i] != ' ')
+				i--;
+
+			/* if i reaches the start of the string, stop */
+			if (i <= 0)
+				break;
+			
+			/* compute the length of the current word */
+			lengthCrtWord -= i;
+			
+			/* copy the prefix and the word to the new index */
+			moveSubstring(s, i + lengthCrtWord, last, lengthCrtWord);
+			
+			/* update the right index */
+			last = i+1;
+		}
+	}
+	
+	/* print a string consting of a char array */
+	public static void printString(char[] s) {
+		int len = s.length;
+		for (int i = 0; i < len; i++)
+			System.out.print(s[i]);
+		System.out.println();
+	}
+	
+	public static void main(String[] args) {
+		char[] s = {'M','r',' ','J','o','h','n',' ','S','m','i','t','h',' ',' ',' ',' '};
+		int realLength = 13;
+		printString(s);
+		replaceSpaces(s, realLength);
+		printString(s);
+	}
+}
