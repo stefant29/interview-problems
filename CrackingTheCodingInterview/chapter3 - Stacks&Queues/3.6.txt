@@ -1,0 +1,58 @@
+/* Write a program to sort a stack in ascending order (with biggest items on top).
+ You may use at most one additional stack to hold items, but you may not copy 
+ the elements into any other data structure (suchasan array).
+ The stack supports the following operations: push, pop, peek, and isEmpty.
+ */
+
+
+// [2, 4, 6, 3, 1]   ->   [1, 2, 3, 4, 6]
+// [1]
+// [2, 3, 6, 4]
+// min = 
+
+
+// []
+// [6, 4, 3, 2, 1]
+// first = 3
+import java.util.*;
+
+// space complexity: O(N) - linear
+// time complexity: O(N^2) - quadratic
+public class Solution {
+ public static Stack<Integer> sortStack(Stack<Integer> stack) {
+  Stack<Integer> stack2 = new Stack<Integer>();
+  int first;
+  
+  /* take the elements out of the first stack */
+  while (!stack.isEmpty()) {
+    first = stack.pop();
+    /* compare them with the element at the top of the second stack:
+     *   if it is smaller, pop the element from the second stack
+     *   and push it to the first stack; Do this until at the top
+     *   of the second stack is an item smaller than the item at the top
+     *   of the first stack;
+     */
+    while(!stack2.isEmpty() && first < stack2.peek())
+      stack.push(stack2.pop());
+    /* Then push the popped element from the first stack into the second stack */
+    stack2.push(first);
+  }
+   
+   /* return the newly sorted stack */
+   return stack2;
+}
+  public static void main(String[] args) {
+    Stack<Integer> stack = new Stack<Integer>();
+    stack.push(1);
+    stack.push(3);
+    stack.push(6);
+    stack.push(4);
+    stack.push(2);
+    stack = sortStack(stack);
+    /* print the elements from the sorted stack */
+    while(!stack.isEmpty()) {
+      System.out.print(stack.pop() + "  ");
+    }
+  }
+
+}
