@@ -1,0 +1,101 @@
+import java.util.HashSet;
+
+public class Solution {
+	static class Node<T> {
+		T data;
+		Node<T> next;
+		
+		public Node() {
+			this.data = null;
+			this.next = null;
+		}
+		public Node(T data) {
+			this.data = data;
+			this.next = null;
+		}
+		public Node(T data, Node<T> next) {
+			this.data = data;
+			this.next = next;
+		}
+		
+		public void appendToTail(T data, Node<T> next) {
+			Node<T> head = this;
+			if (this.data == null) {
+				if (data != null)
+					this.data = data;
+				else if (next != null)
+					this.data = next.data;
+				return;
+			}
+			while (head.next != null) { head = head.next; }
+			if (data != null)
+				head.next = new Node<T>(data);
+			else
+				head.next = next;
+		}
+
+		public void appendToTail(T data) {
+			appendToTail(data, null);
+		}
+		
+		public void appendToTail(Node<T> next) {
+			appendToTail(null, next);
+		}
+		
+		public String toString() {
+			return data.toString();
+		}
+		
+		public void print(Node<T> head) {
+			if (head == null)
+				return;
+			System.out.print("[");
+			while (head.next != null) {
+				System.out.print(head.data + ",  ");
+				head = head.next;
+			}
+			System.out.println(head.data + "]");
+		}
+		
+		public Node<T> removeDuplicates(Node<T> head) {
+			HashSet<T> set = new HashSet<T>();
+			Node<T> head_copy = head;
+			Node<T> prev = head;
+
+			if (head == null)
+				return null;
+
+			while (head != null) {
+				if (set.add(head.data) == false)
+					prev.next = head.next;
+				else
+					prev = head;
+				head = head.next;
+			}
+			return head_copy;
+		}
+	}
+	
+	public static void main(String[] args) {
+		Node<Integer> list = new Node<Integer>();
+		Node<Integer> n1 = new Node<Integer>(1);
+		Node<Integer> n2 = new Node<Integer>(2);
+		list.appendToTail(n1);
+		list.appendToTail(n2);
+		list.appendToTail(1);
+		list.appendToTail(3);
+		list.appendToTail(1);
+		list.appendToTail(2);
+		list.appendToTail(1);
+		list.appendToTail(1);
+		list.appendToTail(3);
+		list.appendToTail(1);
+		list.appendToTail(2);
+		list.appendToTail(1);
+		list.print(list);
+		
+		// ex2.1 Write code to remove duplicate from an unsorted linked list
+		list = list.removeDuplicates(list);
+		list.print(list);
+	}
+}
