@@ -1,0 +1,125 @@
+import java.util.HashSet;
+
+public class Ex2_1_1 {
+	static class Node<T> {
+		T data;
+		Node<T> next;
+		
+		/* constructors */
+		public Node() {
+			this.data = null;
+			this.next = null;
+		}
+		public Node(T data) {
+			this.data = data;
+			this.next = null;
+		}
+		public Node(T data, Node<T> next) {
+			this.data = data;
+			this.next = next;
+		}
+		
+		/*
+		 * Create a node with a given data and add it to the end of the current list
+		 * or add a given Node to the end of the list
+		 */
+		public void appendToTail(T data, Node<T> next) {
+			Node<T> head = this;
+
+			/* if data of the head of the list is null, set the data */
+			if (this.data == null) {
+				/* set this.data to the given data*/
+				if (data != null)
+					this.data = data;
+				/* or to the data of the next Node given */
+				else if (next != null)
+					this.data = next.data;
+				return;
+			}
+
+			/* iterate through the list to the end */
+			while (head.next != null) { head = head.next; }
+
+			/* create a new node with the given data and insert it */
+			if (data != null)
+				head.next = new Node<T>(data);
+			/* or link the given node at the end */
+			else
+				head.next = next;
+		}
+
+		/* add to the end of the current list an element with given data */
+		public void appendToTail(T data) { appendToTail(data, null); }
+
+		/* add to the end of the current list a given node */
+		public void appendToTail(Node<T> next) { appendToTail(null, next); }
+		
+		public String toString() {
+			return data.toString();
+		}
+		
+		/* print the given list */
+		public void print(Node<T> head) {
+			if (head == null)
+				return;
+			System.out.print("[");
+			while (head.next != null) {
+				System.out.print(head.data + ",  ");
+				head = head.next;
+			}
+			System.out.println(head.data + "]");
+		}
+		
+		/* remove duplicates from a given list using a set to store Nodes 
+		 * Time complexity: O(n) - linear
+		 * Space complexity: O(n) - linear
+		 */
+		public void removeDuplicates(Node<T> head) {
+			HashSet<T> set = new HashSet<T>();
+			Node<T> prev = head;
+
+			/* sanity checks */
+			if (head == null)
+				return;
+
+			/* iterate through the list */
+			while (head != null) {
+				/* try to add the current data to the set:
+				 *    if the set already contains the current value, 
+				 *       advance the previous node's link to the next node
+				 *    else, just advance the previous to the current node 
+				 */
+				if (set.add(head.data) == false)
+					prev.next = head.next;
+				else
+					prev = head;
+				/* advance the current node to the next node */
+				head = head.next;
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		/* create a list for testing */
+		Node<Integer> list = new Node<Integer>();
+		Node<Integer> n1 = new Node<Integer>(1);
+		Node<Integer> n2 = new Node<Integer>(2);
+		list.appendToTail(n1);
+		list.appendToTail(n2);
+		list.appendToTail(1);
+		list.appendToTail(3);
+		list.appendToTail(1);
+		list.appendToTail(2);
+		list.appendToTail(1);
+		list.appendToTail(1);
+		list.appendToTail(3);
+		list.appendToTail(1);
+		list.appendToTail(2);
+		list.appendToTail(1);
+		list.print(list);
+		
+		// ex2.1 Write code to remove duplicate from an unsorted linked list
+		list.removeDuplicates(list);
+		list.print(list);
+	}
+}
