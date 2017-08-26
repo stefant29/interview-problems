@@ -1,0 +1,112 @@
+
+public class Ex2_3 {
+	static class Node<T> {
+		T data;
+		Node<T> next;
+		
+		/* constructors */
+		public Node() {
+			this.data = null;
+			this.next = null;
+		}
+		public Node(T data) {
+			this.data = data;
+			this.next = null;
+		}
+		public Node(T data, Node<T> next) {
+			this.data = data;
+			this.next = next;
+		}
+		
+		/*
+		 * Create a node with a given data and add it to the end of the current list
+		 * or add a given Node to the end of the list
+		 */
+		public void appendToTail(T data, Node<T> next) {
+			Node<T> head = this;
+
+			/* if data of the head of the list is null, set the data */
+			if (this.data == null) {
+				/* set this.data to the given data*/
+				if (data != null)
+					this.data = data;
+				/* or to the data of the next Node given */
+				else if (next != null)
+					this.data = next.data;
+				return;
+			}
+
+			/* iterate through the list to the end */
+			while (head.next != null) { head = head.next; }
+
+			/* create a new node with the given data and insert it */
+			if (data != null)
+				head.next = new Node<T>(data);
+			/* or link the given node at the end */
+			else
+				head.next = next;
+		}
+
+		/* add to the end of the current list an element with given data */
+		public void appendToTail(T data) { appendToTail(data, null); }
+
+		/* add to the end of the current list a given node */
+		public void appendToTail(Node<T> next) { appendToTail(null, next); }
+		
+		public String toString() {
+			return data.toString();
+		}
+		
+		/* print the given list */
+		public void print(Node<T> head) {
+			if (head == null)
+				return;
+			System.out.print("[");
+			while (head.next != null) {
+				System.out.print(head.data + ",  ");
+				head = head.next;
+			}
+			System.out.println(head.data + "]");
+		}
+		
+		/* 
+		 * remove a certain node by copying all next nodes
+		 * one position to the left
+		 */
+		public void removeNode(Node<T> crtNode) {
+			/* iterate through the list starting from crtNode to the end */
+			while (crtNode.next != null) {
+				/* override current data with data from next Node */
+				crtNode.data = crtNode.next.data;
+				/* update end of the list with NULL */
+				if (crtNode.next.next == null) {
+					crtNode.next = null;
+					break;
+				}
+				/* advance to the next node */
+				crtNode = crtNode.next;
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		/* create a list for testing */
+		Node<Integer> list = new Node<Integer>();
+		Node<Integer> n1 = new Node<Integer>(1);
+		Node<Integer> n2 = new Node<Integer>(2);
+		list.appendToTail(n1);
+		list.appendToTail(n2);
+		list.appendToTail(3);
+		list.appendToTail(4);
+		list.appendToTail(5);
+		list.appendToTail(6);
+		list.print(list);
+		
+		// ex2.2 Find the k'th to last element
+		list.removeNode(list.next.next);
+		list.print(list);
+		
+		list.removeNode(list.next);
+		list.print(list);
+	}
+}
