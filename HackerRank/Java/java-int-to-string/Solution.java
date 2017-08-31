@@ -26,6 +26,9 @@ public class Solution {
     while (!stack.isEmpty())
         sb.append(stack.pop());
 
+
+    if (copyN == 0)
+        sb.append('0');
     String s = sb.toString();
 
     n = copyN;
