@@ -1,0 +1,4 @@
+INDEX VERSION 1.127+/Users/stefan/interview-problems/MacBook-eclipse/.metadata/.plugins/org.eclipse.jdt.core
+2024595405.index
+1549653844.index
+3074455524.index
