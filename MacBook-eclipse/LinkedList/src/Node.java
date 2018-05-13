@@ -13,6 +13,41 @@ public class Node {
 		this.next = next;
 	}
 	
+	public Boolean hasNext() {
+		return next != null;
+	}
+	
+	public static Node insertFirst(Node head, int info) {
+		Node newStart = new Node(info);
+		newStart.next = head;
+		return newStart;
+	}
+	
+	public static Node insertLast(Node head, int info) {
+		if (head == null)
+			return new Node(info);
+		Node aux = head;
+		for (; aux != null && aux.next != null; aux = aux.next);
+		aux.next = new Node(info);
+		return head;
+	}
+	
+	public static Node insertAfter(Node head, int info, int searchedInfo) {
+		if (head == null)
+			return new Node(info);
+		
+		for (Node aux = head; aux != null; aux = aux.next) {
+			if (aux.info == searchedInfo) {
+				Node next = aux.next;
+				aux.next = new Node(info);
+				aux.next.next = next;
+				return head;
+			}
+		}
+		
+		return insertLast(head, info);
+	}
+	
 	public void setInfo(int info) {
 		this.info = info;
 	}

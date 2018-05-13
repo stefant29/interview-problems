@@ -1,0 +1,9 @@
+
+public class Stack {
+
+	private Node head;
+	
+	public void Push(int data) {
+		Node newNode = new Node(data, head);
+	}
+}

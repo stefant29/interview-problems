@@ -1,0 +1,49 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+//		Node list1 = new Node(1, new Node(2, new Node(3, new Node(4))));
+//		Node list2 = new Node(3, new Node(5, new Node(6, new Node(1))));
+//		
+//		Node intersect = Methods.getIntersection(list1, list2);
+//		Node union = Methods.getUnion(list1, list2);
+//		
+//		Methods.print(list1);
+//		Methods.print(list2);
+//
+//		Methods.print(intersect);
+//		Methods.print(union);
+		
+		Node head = new Node(1);
+		head = Node.insertFirst(head, 2);
+		head = Node.insertFirst(head, 3);
+		head = Node.insertLast(head, 4);
+		head = Node.insertLast(head, 5);
+		
+		head = Node.insertAfter(head, 6, 2);
+		head = Node.insertAfter(head, 7, 8);
+		Methods.print(head);
+		
+		
+		Stack stack = new Stack();
+		stack.Push(1);
+		stack.Push(2);
+		stack.Push(3);
+
+		
+		stack.print();
+		
+		System.out.println(stack.Pop());
+		stack.print();
+		
+		System.out.println(stack.Pop());
+		stack.print();
+		
+		System.out.println(stack.Pop());
+		stack.print();
+		
+		System.out.println(stack.Pop());
+		stack.print();System.out.println(stack.Pop());
+		stack.print();
+	}
+}

@@ -1,0 +1,44 @@
+
+
+public class Node {
+	private int info;
+	private Node next;
+	
+	public Node(int info) {
+		this.info = info;
+	}
+	
+	public Node(int info, Node next) {
+		this.info = info;
+		this.next = next;
+	}
+	
+	public static Node insertFirst(Node head, int info) {
+		Node newStart = new Node(info);
+		newStart.next = head;
+		return newStart;
+	}
+	
+	public static Node insertLast(Node head, int info) {
+		if (head == null)
+			return new Node(info);
+		for (Node aux = head; aux != null && aux.next != null; aux = aux.next)
+	}
+	
+	public void setInfo(int info) {
+		this.info = info;
+	}
+	
+	public void setNext(Node next) {
+		this.next = next;
+	}
+	
+	public int getInfo() {
+		return this.info;
+	}
+	
+	public Node getNext() {
+		return this.next;
+	}
+	
+}
