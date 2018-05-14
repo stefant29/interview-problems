@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Methods {
 
@@ -51,6 +52,108 @@ public class Methods {
 		}
 		
 		return false;
+	}
+	
+	/** Find if any array is a subset of the other array
+	 * if not, return the union elements of the two arrays
+	 */
+	public static int[] wchichIsSubSet(int[] arr1, int[] arr2) {
+		// if first array has fewer elements, create a set with its elements
+		// then check if elements from second array are contained in the set
+		if (arr1.length < arr2.length && isSubSet(arr1, arr2)) {
+			 return arr2;
+		// arr2 has fewer elements
+		} if (isSubSet(arr2, arr1)) {
+			return arr1;
+		}
+		
+		// return common elements
+		return union(arr1, arr2);
+	}
+	
+	/** Create the union array of two arrays
+	 */
+	public static int[] union(int[] arr1, int[] arr2) {
+		// copy all elements
+		Set<Integer> set_intersect = new HashSet<Integer>();
+		int i = 0;
+		
+		for (; i < arr1.length && i < arr2.length; i++) {
+			set_intersect.add(arr1[i]);
+			set_intersect.add(arr2[i]);
+		}
+		
+		for (; i < arr1.length; i++)
+			set_intersect.add(arr1[i]);
+		
+		for (; i < arr2.length; i++)
+			set_intersect.add(arr2[i]);
+		
+		i = 0;
+		int[] arr_intersect = new int[set_intersect.size()];
+		for (int set_i : set_intersect)
+			arr_intersect[i++] = set_i;
+		
+		return arr_intersect;
+	}
+	
+	/** Create the intersection array of two arrays
+	 */
+	public static int[] intersect(int[] arr1, int[] arr2) {
+		Set<Integer> set_arr = new HashSet<Integer>();
+		Set<Integer> set_intersect = new HashSet<Integer>();
+		
+		if (arr1.length < arr2.length) {
+			for (int i = 0; i < arr1.length; i++)
+				set_arr.add(arr1[i]);
+			for (int i : arr2)
+				if (set_arr.contains(i))
+					set_intersect.add(i);
+ 		} else {
+			for (int i = 0; i < arr2.length; i++)
+				set_arr.add(arr2[i]);
+			for (int i : arr1)
+				if (set_arr.contains(i))
+					set_intersect.add(i);
+ 		}
+		
+		int i = 0;
+		int[] arr_intersect = new int[set_intersect.size()];
+		for (int set_i : set_intersect)
+			arr_intersect[i++] = set_i;
+		
+		return arr_intersect;
+	}
+	
+	/** Find if an array is subset of another array
+	 * both arrays are not in sorted order
+	 * it may be assumed that elements in both array are distinct
+	 */
+	public static Boolean isSubSet(int[] arr1, int[] arr2) {
+		Set<Integer> set_arr = new HashSet<Integer>();
+		// add all elements from array 1 to a set for faster access time
+		for (int i : arr1)
+			set_arr.add(i);
+		
+		// search every item from array 2
+		for (int i : arr2)
+			// into the set in constant time
+			if (!set_arr.contains(i))
+				// if the element is not found, 
+				// second array is not subset of first array
+				return false;
+		
+		// all elements are found in array 1, 
+		// so array 2 is subset of array 1
+		return true;
+	}
+	
+	public static void printArray(int[] arr) {
+		System.out.print("[");
+		for (int i : arr) {
+			System.out.print(i + ", ");
+		}
+		System.out.println("]");
 	}
 }
 	

@@ -1,0 +1,91 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Methods {
+
+	/* pair of 2 objects */
+	static class Pair {
+		Object o1, o2;
+		public Pair(Object o1, Object o2) {this.o1 = o1; this.o2 = o2;}
+		public String toString() {return "(" + o1 + "," + o2 + ")";}
+	}
+	
+	
+	/* Given an array A[] and a number x, check for pair in A[] with sum as x
+	 * https://www.geeksforgeeks.org/write-a-c-program-that-given-a-set-a-of-n-numbers-and-another-number-x-determines-whether-or-not-there-exist-two-elements-in-s-whose-sum-is-exactly-x/   */
+	public static ArrayList<Pair> findPairWithSum(int[] arr, int sum) {
+		ArrayList<Pair> pairs = new ArrayList<Pair>();
+		HashSet<Integer> numbers = new HashSet<Integer>();
+		
+		/* for each element in the array */
+		for (Integer i : arr) {
+			/* if the current element is in the set, create a new pair */
+			if (numbers.contains(i))
+				pairs.add(new Pair(i, sum-i));
+			/* else, add in the set the remaining of subtracting the element from sum */
+			else
+				numbers.add(sum-i);
+		}
+		
+		return pairs;
+	}
+	
+	
+	/* Check if a given array contains duplicate elements within k distance from each other 
+	 * https://www.geeksforgeeks.org/check-given-array-contains-duplicate-elements-within-k-distance/ 	 */
+	public static boolean checkForDuplicatesInRange(int[] arr, int k) {
+		HashSet<Integer> setRangeK = new HashSet<Integer>();
+		
+		for (int i = 0; i < arr.length; i++) {
+			/* if the set contains the current element => 
+			 * => it is a duplicate within k elements in the array */
+			if (setRangeK.contains(arr[i]))
+				return true;
+			/* if not, add it to the set and remove the first element 
+			 * so the set will hold at most k elements */
+			else {
+				setRangeK.add(arr[i]);
+				if (i >= k)
+					setRangeK.remove(arr[i-k]);
+			}
+		}
+		
+		return false;
+	}
+	
+	/** Find if an array is subset of another array
+	 * both arrays are not in sorted order
+	 * it may be assumed that elements in both array are distinct
+	 */
+	public static boolean isSubArray(int[] arr1, int[] arr2) {
+		Set<Integer> set_arr;
+		
+		if (arr1.length < arr2.length) {
+			return isSubSet(arr1, arr2);
+		} else {
+			set_arr = createSetFromArray(arr2);
+		}
+		
+		
+		
+		
+	}
+	
+	/** Find if an array is subset of another array
+	 * both arrays are not in sorted order
+	 * it may be assumed that elements in both array are distinct
+	 */
+	public static Boolean isSubSet(int[] arr1, int[] arr2) {
+		Set<Integer> set_arr = new HashSet<Integer>();
+		for (int i : arr1)
+			set_arr.add(i);
+		
+		for (int i : arr2) {
+			if (!set_arr.contains(i))
+				return false;
+		}
+		return true;
+	}
+}
+	
