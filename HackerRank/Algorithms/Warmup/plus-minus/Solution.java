@@ -13,7 +13,7 @@ public class Solution {
             /* print the fraction */
             System.out.println((float) count / n);
         /* if count is 0, print 0 */
-        else 
+        else
             System.out.println("0");
     }
 

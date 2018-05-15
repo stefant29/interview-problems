@@ -1,0 +1,92 @@
+//import java.util.Stack;
+//import java.util.Set;
+//import java.util.HashSet;
+import java.util.*;
+
+public class Ex3_3 {
+
+	static class SetOfStacks {
+		private Set<Stack<Object>> set;
+		private final int limit;
+		private Stack<Object> crtStack;
+		
+
+		public SetOfStacks(int limit) {
+			set = new HashSet<Stack<Object>>();
+			
+			crtStack = new Stack<Object>();
+			set.add(crtStack);
+			
+			this.limit = limit;
+		}
+		public void push(Object toAdd) {
+			if (crtStack.size() >= limit) {
+				Stack<Object> newStack = new Stack<Object>();
+				newStack.push(toAdd);
+				set.add(newStack);
+				crtStack = newStack;
+			} else
+				crtStack.push(toAdd);
+		}
+		
+		public void push2(Object toAdd) {
+			Iterator<Stack<Object>> it = set.iterator();
+			Stack<Object> crtStack = null;
+
+			while (it.hasNext()) {
+				crtStack = it.next();
+				if (crtStack.size() < limit)
+					break;
+			}
+			if (!it.hasNext() && crtStack.size() >= limit) {
+				Stack<Object> newStack = new Stack<Object>();
+				newStack.push(toAdd);
+				set.add(newStack);
+			} else
+				crtStack.push(toAdd);
+		}
+		
+		public Object pop() {
+			if (!crtStack.isEmpty())
+				return crtStack.pop();
+			else {
+				Iterator<Stack<Object>> it = set.iterator();
+				if (!it.hasNext())
+					return null;
+				crtStack = it.next();	// NOT THE LAST STACK
+				while (it.hasNext() && crtStack.isEmpty()) {
+					crtStack = it.next();
+				}
+				if (crtStack.isEmpty())
+					return null;
+				Object ret = crtStack.pop();
+				if (crtStack.isEmpty())
+					set.remove(crtStack);
+				return ret;
+			}
+		}
+		
+		public String toString() {
+			return set.toString();
+		}
+	}
+
+	public static void main(String[] args) {
+		SetOfStacks stack = new SetOfStacks(2);
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		stack.push(4);
+		stack.push(5);
+		stack.push(6);
+		
+		System.out.println(stack);
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+		System.out.println(stack.pop());
+	}
+}

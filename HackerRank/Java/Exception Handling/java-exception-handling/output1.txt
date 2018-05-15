@@ -1,0 +1,10 @@
+1
+0
+java.lang.Exception: n or p should not be negative.
+java.lang.Exception: n or p should not be negative.
+java.lang.Exception: n or p should not be negative.
+15625
+27
+1
+8
+java.lang.Exception: n or p should not be negative.

@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 import java.math.BigInteger;
 
-// https://www.hackerrank.com/challenges/duplicate-word
+// https://www.hackerrank.com/challenges/java-biginteger
 public class Solution {
 
     public static void main(String[] args) {

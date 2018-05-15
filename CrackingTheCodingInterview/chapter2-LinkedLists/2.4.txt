@@ -1,5 +1,6 @@
+import java.util.*;
 
-public class Ex2_3 {
+public class Ex2_4 {
 	static class Node<T> {
 		T data;
 		Node<T> next;
@@ -58,10 +59,10 @@ public class Ex2_3 {
 		}
 		
 		/* print the given list */
-		public void print(Node<T> head) {
+		public void print(String s, Node<T> head) {
 			if (head == null)
 				return;
-			System.out.print("[");
+			System.out.print(s + "  [");
 			while (head.next != null) {
 				System.out.print(head.data + ",  ");
 				head = head.next;
@@ -69,23 +70,39 @@ public class Ex2_3 {
 			System.out.println(head.data + "]");
 		}
 		
-		/* 
-		 * remove a certain node by copying all next nodes
-		 * one position to the left
-		 */
-		public void removeNode(Node<T> crtNode) {
-			/* iterate through the list starting from crtNode to the end */
-			while (crtNode.next != null) {
-				/* override current data with data from next Node */
-				crtNode.data = crtNode.next.data;
-				/* update end of the list with NULL */
-				if (crtNode.next.next == null) {
-					crtNode.next = null;
-					break;
-				}
-				/* advance to the next node */
-				crtNode = crtNode.next;
+		public Node<T> partition(Node<T> head, Node<T> crtNode) {
+			if (head == null || crtNode == null)
+				return null;
+			
+			/* use two queues to store elements smaller and bigger than crtNode */
+			Queue<T> left = new LinkedList<T>();
+			Queue<T> right = new LinkedList<T>();
+			int ref = (int)crtNode.data;
+			/* fill in the queues with data from nodes given by head list */
+			while (head != null) { 
+				if ((int)head.data < ref)
+					left.add(head.data);
+				else if ((int)head.data > ref)
+					right.add(head.data);
+				head = head.next;
 			}
+
+			/* create a new list and concatenate "left" list with "crtNode" with "right" list */
+			Node<T> newHead = null;
+			/* start with the left list */
+			if (!left.isEmpty())
+				newHead = new Node<T>(left.poll());
+			while (!left.isEmpty())
+				newHead.appendToTail(new Node<T>(left.poll()));
+
+			/* add crtNode */
+			newHead.appendToTail(crtNode.data);
+
+			/* continue with right list */
+			while (!right.isEmpty())
+				newHead.appendToTail(new Node<T>(right.poll()));
+		
+			return newHead;
 		}
 	}
 	
@@ -94,20 +111,18 @@ public class Ex2_3 {
 		Node<Integer> list = new Node<Integer>();
 		Node<Integer> n1 = new Node<Integer>(1);
 		Node<Integer> n2 = new Node<Integer>(2);
-		list.appendToTail(n1);
-		list.appendToTail(n2);
 		list.appendToTail(3);
-		list.appendToTail(4);
-		list.appendToTail(5);
 		list.appendToTail(6);
-		list.print(list);
+		list.appendToTail(4);
+		list.appendToTail(n2);
+		list.appendToTail(5);
+		list.appendToTail(n1);
+
+		list.print("Before: ", list);
 		
-		// ex2.3 Implement an algorithm to delete a node in the middle 
-		//   of a singly linked list, given only access to that node
-		list.removeNode(list.next.next);
-		list.print(list);
-		
-		list.removeNode(list.next);
-		list.print(list);
+		// ex2.4 Partition a linked list: all elements smaller than the given node
+		//   should be to its left and all elements bigger should be to its right
+		list = list.partition(list, list.next.next);
+		list.print("After:  ", list);
 	}
 }

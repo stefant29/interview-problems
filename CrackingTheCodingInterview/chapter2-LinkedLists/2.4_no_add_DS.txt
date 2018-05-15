@@ -1,0 +1,149 @@
+import java.util.*;
+
+public class Ex2_4 {
+	static class Node<T> {
+		T data;
+		Node<T> next;
+		
+		/* constructors */
+		public Node() {
+			this.data = null;
+			this.next = null;
+		}
+		public Node(T data) {
+			this.data = data;
+			this.next = null;
+		}
+		public Node(T data, Node<T> next) {
+			this.data = data;
+			this.next = next;
+		}
+		
+		/*
+		 * Create a node with a given data and add it to the end of the current list
+		 * or add a given Node to the end of the list
+		 */
+		public void appendToTail(T data, Node<T> next) {
+			Node<T> head = this;
+
+			/* if data of the head of the list is null, set the data */
+			if (this.data == null) {
+				/* set this.data to the given data*/
+				if (data != null)
+					this.data = data;
+				/* or to the data of the next Node given */
+				else if (next != null)
+					this.data = next.data;
+				return;
+			}
+
+			/* iterate through the list to the end */
+			while (head.next != null) { head = head.next; }
+
+			/* create a new node with the given data and insert it */
+			if (data != null)
+				head.next = new Node<T>(data);
+			/* or link the given node at the end */
+			else
+				head.next = next;
+		}
+
+		/* add to the end of the current list an element with given data */
+		public void appendToTail(T data) { appendToTail(data, null); }
+
+		/* add to the end of the current list a given node */
+		public void appendToTail(Node<T> next) { appendToTail(null, next); }
+		
+		public String toString() {
+			return data.toString();
+		}
+		
+		/* print the given list */
+		public void print(String s, Node<T> head) {
+			if (head == null)
+				return;
+			System.out.print(s + "  [");
+			while (head.next != null) {
+				System.out.print(head.data + ",  ");
+				head = head.next;
+			}
+			System.out.println(head.data + "]");
+		}
+		
+		/* move all elements smaller than crtNode to left and the rest to right */
+		public Node<T> partition(Node<T> head, Node<T> crtNode) {
+			if (head == null || crtNode == null)
+				return null;
+			
+			/* start of the left list */
+			Node<T> left = null;
+			/* end of the left list */
+			Node<T> leftEnd = null;
+			/* start of the right list */
+			Node<T> right = null;
+			/* end of the right list */
+			Node<T> rightEnd = null;
+
+			/* reference value */
+			int ref = (int)crtNode.data;
+			/* traverse the linked list */
+			while (head != null) { 
+				/* if the current element is smaller than ref */
+				if ((int)head.data < ref) {
+					/* if the start of the left list is null, set it to crt node */
+					if (left == null)
+						left = head;
+					/* else, set the leftEnd.next to crt node */
+					else
+						leftEnd.next = head;
+					/* update the last element of the left list */
+					leftEnd = head;
+				} else if ((int)head.data > ref) {
+					/* if the start of the right list is null, set it to crt node */
+					if (right == null)
+						right = head;
+					/* else, set the rightEnd.next to crt node */
+					else
+						rightEnd.next = head;
+					/* update the last element of the right list */
+					rightEnd = head;
+				}
+				/* go to the next element in the linked list */
+				head = head.next;
+			}
+			
+			/* set the wanted node as the next node of the left list */
+			leftEnd.next = crtNode;
+			/* 
+			 * set the right list as the next node of the wanted node:
+			 * put the wanted node between left list and right list
+			 */
+			crtNode.next = right;
+			/* set the final pointer to null to avoid loops */
+			rightEnd.next = null;
+		
+			/* return the start of the left linked list */
+			return left;
+		}
+	}
+	
+	public static void main(String[] args) {
+		/* create a list for testing */
+		Node<Integer> list = new Node<Integer>();
+		Node<Integer> n1 = new Node<Integer>(1);
+		Node<Integer> n2 = new Node<Integer>(2);
+		list.appendToTail(3);
+		list.appendToTail(6);
+		list.appendToTail(4);
+		list.appendToTail(n2);
+		list.appendToTail(5);
+		list.appendToTail(n1);
+
+		list.print("Before: ", list);
+		
+		// ex2.4 Partition a linked list: all elements smaller than the given node
+		//   should be to its left and all elements bigger should be to its right
+		list = list.partition(list, list);
+		list.print("After:  ", list);
+	}
+}

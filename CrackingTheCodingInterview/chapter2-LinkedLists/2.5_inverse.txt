@@ -1,0 +1,199 @@
+import java.util.ArrayList;
+
+public class Ex2_5 {
+	static class Node<T> {
+		T data;
+		Node<T> next;
+		
+		/* constructors */
+		public Node() {
+			this.data = null;
+			this.next = null;
+		}
+		public Node(T data) {
+			this.data = data;
+			this.next = null;
+		}
+		public Node(T data, Node<T> next) {
+			this.data = data;
+			this.next = next;
+		}
+		
+		public Node<T> insertStart(Node<T> head, T data) {
+			Node<T> newNode = new Node<T>(data);
+			newNode.next = head;
+			return newNode;
+		}
+		
+		/*
+		 * Create a node with a given data and add it to the end of the current list
+		 * or add a given Node to the end of the list
+		 */
+		public void appendToTail(T data, Node<T> next) {
+			Node<T> head = this;
+
+			/* if data of the head of the list is null, set the data */
+			if (this.data == null) {
+				/* set this.data to the given data*/
+				if (data != null)
+					this.data = data;
+				/* or to the data of the next Node given */
+				else if (next != null)
+					this.data = next.data;
+				return;
+			}
+
+			/* iterate through the list to the end */
+			while (head.next != null) { head = head.next; }
+
+			/* create a new node with the given data and insert it */
+			if (data != null)
+				head.next = new Node<T>(data);
+			/* or link the given node at the end */
+			else
+				head.next = next;
+		}
+
+		/* add to the end of the current list an element with given data */
+		public void appendToTail(T data) { appendToTail(data, null); }
+
+		/* add to the end of the current list a given node */
+		public void appendToTail(Node<T> next) { appendToTail(null, next); }
+		
+		public String toString() {
+			return data.toString();
+		}
+		
+		/* print the given list */
+		public void print(String s, Node<T> head) {
+			if (head == null)
+				return;
+			System.out.print(s);
+			while (head != null) {
+				System.out.print(head.data + "");
+				head = head.next;
+			}
+			System.out.println();
+		}
+		
+		public Node<Integer> sumLists(Node<Integer> list1, Node<Integer> list2) {
+			if (list1 == null && list2 == null)
+				return null;
+			if (list1 == null)
+				return list2;
+			if (list2 == null)
+				return list1;
+				
+			int rest = 0;
+			Node<Integer> list = new Node<Integer>();
+			while (list1 != null && list2 != null) {
+				/* add the two digits (crt node's data) */
+				int sum = list1.data + list2.data + rest;
+				/* append the last digit of the sum to the result list*/
+				list.appendToTail(sum % 10);
+				/* update the rest */
+				rest = sum / 10;
+				
+				/* move to the next digit in the lists */
+				list1 = list1.next;
+				list2 = list2.next;
+			}
+			
+			/* if there is a rest at the end, add it to the result */
+			if (rest != 0)
+				list.appendToTail(rest);
+			
+			/* return the restul */
+			return list;
+		}
+		
+		public Node<Integer> sumLists2(Node<Integer> list1, Node<Integer> list2) {
+			if (list1 == null && list2 == null)
+				return null;
+			if (list1 == null)
+				return list2;
+			if (list2 == null)
+				return list1;
+				
+			/* result list: stores the sum of the two lists */
+			Node<Integer> list = new Node<Integer>();
+			/* rests array: stores the rests for the sum of the two lists */
+			ArrayList<Integer> rests = new ArrayList<Integer>();
+			
+			while (list1 != null && list2 != null) {
+				/* add the two digits */
+				int sum = list1.data + list2.data;
+				/* append the last digit of the sum to the result list*/
+				list.appendToTail(sum % 10);
+				/* add the rest to an array of rests */
+				rests.add(sum / 10);
+				
+				/* move to the next digit in the lists */
+				list1 = list1.next;
+				list2 = list2.next;
+			}
+			
+			/* apply the rests to the list */
+			return sumAux(list, rests);
+		}
+		
+		/* add the rests to the list and return the new list */
+		public Node<Integer> sumAux(Node<Integer> list, ArrayList<Integer> rests) {
+			if (list == null)
+				return null;
+			
+			/* copy the start of the list */
+			Node<Integer> copyHead = list;
+			/* 
+			 * if the rest is different than 0 at the start, 
+			 * insert it at the start of the new list
+			 */
+			if (rests.get(0) != 0)
+				copyHead = list.insertStart(list, rests.get(0));
+
+			int i = 1;
+			/* update the list with the rests */
+			while (list.next != null && i < rests.size()) {
+				int sum = list.data + rests.get(i);
+				/* update data */
+				list.data = sum % 10;
+				/* update rests */
+				rests.set(i++, sum / 10);
+				/* move to the next element */
+				list = list.next;
+			}
+
+			/* return the start of the updated list */
+			return copyHead;
+		}
+	}
+	
+	public static void main(String[] args) {
+		/* create a list for testing */
+		Node<Integer> list1 = new Node<Integer>();
+		Node<Integer> list2 = new Node<Integer>();
+/*		list1.appendToTail(6);
+		list1.appendToTail(1);
+		list1.appendToTail(7);
+		
+		list2.appendToTail(2);
+		list2.appendToTail(9);
+		list2.appendToTail(5);   */
+
+		
+		list1.appendToTail(9);
+		list1.appendToTail(9);
+		list1.appendToTail(9);
+		
+		list2.appendToTail(9);
+		list2.appendToTail(9);
+		list2.appendToTail(9);
+		
+		list1.print("n1: ", list1);
+		list2.print("n2: ", list2);
+		
+		// ex2.5 Add two numbers stored as linked lists
+		Node<Integer> list = list1.sumLists2(list1, list2);
+		list.print("n1+n2=", list);
+	}
+}
