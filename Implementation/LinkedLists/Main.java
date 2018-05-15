@@ -77,7 +77,7 @@ static Node SortedInsert(Node head,int data) {
 		list.add(3);
 		list.add(4);
 		System.out.println("List: " + list);
-		list.removeStart();
+		list.pop();
 		System.out.println("List: " + list);
 		Element<Integer> el = list.getElemAt(8);
 		if (el != null)

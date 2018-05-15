@@ -11,6 +11,10 @@ public class LinkedList<T> {
 		head = elem;
 	}
 	
+	/**
+	 * create new element and append it to the end of the list
+	 * @param data
+	 */
 	public void add(T data) {
 		Element<T> aux = head;
 		if (head == null) {
@@ -24,6 +28,10 @@ public class LinkedList<T> {
 		aux.setNext(new Element<T>(data));
 	}
 	
+	/**
+	 * append element at the end of the list
+	 * @param elem
+	 */
 	public void add(Element<T> elem) {
 		if (head == null) {
 			head = elem;
@@ -38,7 +46,9 @@ public class LinkedList<T> {
 		aux.setNext(elem);
 	}
 	
-	public void removeStart() {
+	/** remove first element from the list
+	 */
+	public void pop() {
 		if (head == null)
 			return;
 		if (head.hasNext())
@@ -47,6 +57,8 @@ public class LinkedList<T> {
 			head = null;
 	}
 	
+	/** get element at index
+	 */
 	public Element<T> getElemAt(int index) {
 		Element<T> aux = head;
 		while (aux.hasNext() && index > 0) {
@@ -57,7 +69,9 @@ public class LinkedList<T> {
 			return null;
 		return aux;
 	}
-	
+
+	/** add an element after data
+	 */
 	public void addAfter(Element<T> elem, T data) {
 		if (head == null) {
 			head = new Element<T>(data);
@@ -90,11 +104,13 @@ public class LinkedList<T> {
 		sb.append(aux.getData() + "]");
 		return sb.toString();
 	}
-	
+
+	/* getter */
 	public Element<T> getHead() {
 		return head;
 	}
 
+	/* setter */
 	public void setHead(Element<T> head) {
 		this.head = head;
 	}

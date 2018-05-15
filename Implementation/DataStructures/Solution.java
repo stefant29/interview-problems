@@ -1,4 +1,6 @@
-import java.util.*;
+package DataStructures;
+
+import java.util.Stack;
 
 public class Solution {
 
