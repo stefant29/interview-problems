@@ -1,6 +1,5 @@
 package Arrays;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -77,6 +76,8 @@ public class Methods {
 					System.out.println(i);
 			}
 	}
+	/** Extend the above solution to work for input matrix where all elements of a row don’t have be distinct.
+	 */
 	public static void findPermutedRowsNotDiff(int n, int m, int[][] mat, int row) {
 		
 	}
