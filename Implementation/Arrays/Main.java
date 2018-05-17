@@ -24,5 +24,25 @@ public class Main {
                 		{4, 3, 2, 1}};
 		Methods.findPermutedRows(4, 4, mat, 3);
 		System.out.println("============");
+		
+		
+		
+		int mat1[][] = {{3, 1, 4, 2},
+        		{1, 6, 9, 3},
+        		{1, 2, 1, 4},
+        		{4, 1, 2, 1}};
+		Methods.findPermutedRowsNotDiff(4, 4, mat, 3);
+		System.out.println("============");
+		Methods.findPermutedRowsNotDiff(4, 4, mat1, 3);
+		System.out.println("============");
+		
+		Methods.findSymetricPairs(new int[][] {{11, 20}, {30, 40}, {5, 10}, {40, 30}, {10, 5}});
+		System.out.println("------------");
+		Methods.findSymetricPairs(new int[][] {{1,2}});
+		System.out.println("============");
+		
+		
+		
+		
 	}
 }
