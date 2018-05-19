@@ -1,6 +1,7 @@
 package Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -170,5 +171,37 @@ public class Methods {
 			missing_elements_arr[i] = missing_elements.get(i);
 		
 		return missing_elements_arr;
+	}
+	
+	/** https://www.geeksforgeeks.org/convert-an-array-to-reduced-form-set-1-simple-and-hashing/
+	 * Given an array with n distinct elements, convert the given array to a form 
+	 * where all elements are in range from 0 to n-1. The order of elements is same, 
+	 * i.e., 0 is placed in place of smallest element, 
+	 * 1 is placed for second smallest element, 
+	 * … n-1 is placed for largest element.
+	 */
+	public static int[] reduceArray(int[] arr) {
+		int[] new_arr = new int[arr.length];
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		
+		for (int i = 0; i < arr.length; i++)
+			map.put(arr[i], i);
+	
+		Arrays.sort(arr);
+		
+		for (int i = 0; i < arr.length; i++)
+			new_arr[map.get(arr[i])] = i;
+		
+		return new_arr;
+	}
+	
+	public static void printArr(int[] arr) {
+		System.out.print("[");
+		for (int i = 0; i < arr.length-1; i++)
+			System.out.print(arr[i] + ", ");
+		if (arr.length > 0)
+			System.out.println(arr[arr.length-1] + "]");
+		else
+			System.out.println("]");
 	}
 }
