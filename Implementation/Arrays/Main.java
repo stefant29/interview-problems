@@ -42,7 +42,8 @@ public class Main {
 		System.out.println("============");
 		
 		
-		
+		Methods.printDistinctArray(Methods.findMissingInRange(new int[]{10, 12, 11, 15}, 10, 15));
+		Methods.printDistinctArray(Methods.findMissingInRange(new int[]{1, 14, 11, 51, 15}, 50, 55));
 		
 	}
 }

@@ -1,5 +1,6 @@
 package Arrays;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -142,8 +143,32 @@ public class Methods {
 			else
 				map_pairs.put(second, first);	
 		}
-		
-		
 	}
 	
+	
+	/** https://www.geeksforgeeks.org/find-missing-elements-of-a-range/
+	 * Given an array arr[0..n-1] of distinct elements and a range [low, high], 
+	 * find all numbers that are in range, but not in array. 
+	 * The missing elements should be printed in sorted order.
+	 */
+	public static int[] findMissingInRange(int[] arr, int lo, int hi) {
+		Set<Integer> set_elements = new HashSet<Integer>();
+		ArrayList<Integer> missing_elements = new ArrayList<Integer>();
+		
+		/* construct a set with elements from arr for constant time access */
+		for (int i : arr)
+			set_elements.add(i);
+		
+		/* in the range lo->hi, add to an arrayList all elements who are missing */
+		for (int i = lo; i < hi; i++)
+			if(!set_elements.contains(i))
+				missing_elements.add(i);
+		
+		/* construct the array result */
+		int[] missing_elements_arr = new int[missing_elements.size()];
+		for (int i = 0; i < missing_elements.size(); i++)
+			missing_elements_arr[i] = missing_elements.get(i);
+		
+		return missing_elements_arr;
+	}
 }
