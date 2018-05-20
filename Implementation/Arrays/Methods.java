@@ -195,6 +195,53 @@ public class Methods {
 		return new_arr;
 	}
 	
+	/** https://www.geeksforgeeks.org/check-two-given-sets-disjoint/
+	 * Given two sets represented by two arrays, 
+	 * how to check if the given two sets are disjoint or not? 
+	 * It may be assumed that the given arrays have no duplicates.
+	 */
+	public static Boolean distinctSets(int[] arr1, int[] arr2) {
+		/*
+		// O(N^2)
+		// for each element in the first array
+		for (int i : arr1)
+			// search if there is an equal element in the second array 
+			for (int j : arr2)
+				// equal elements => not disjoint
+				if (i == j)
+					return false;
+		return true;
+		*/
+		
+		/*
+		// O(N) + O(N)
+		Set<Integer> arr1_set = new HashSet<Integer>();
+		for (int i = 0; i < arr1.length; i++)
+			arr1_set.add(arr1[i]);
+		
+		for (int i = 0; i < arr2.length; i++)
+			if (arr1_set.contains(arr2[i]))
+				return false;
+		return true;
+		*/
+		
+		// O(max(n,m))
+		Set<Integer> set = new HashSet<Integer>();
+		int i = 0;
+		while (i < arr1.length && i < arr2.length) {
+			if (!set.add(arr1[i]) || !set.add(arr2[i]))
+				return false;
+			i++;
+		}
+		while (i < arr1.length)
+			if (!set.add(arr1[i++]))
+				return false;
+		while (i < arr2.length)
+			if (!set.add(arr2[i++]))
+				return false;
+		return true;
+	}
+	
 	public static void printArr(int[] arr) {
 		System.out.print("[");
 		for (int i = 0; i < arr.length-1; i++)

@@ -51,5 +51,10 @@ public class Main {
 		System.out.println("------------");
 		Methods.printArr(Methods.reduceArray(new int[] {5, 10, 40, 30, 20}));
 		System.out.println("============");
+		
+		
+		System.out.println(Methods.distinctSets(new int[] {12, 34, 11, 9, 3}, new int[] {2, 1, 3, 5}));
+		System.out.println(Methods.distinctSets(new int[] {12, 34, 11, 9, 3}, new int[] {7, 2, 1, 5}));
+		System.out.println("============");
 	}
 }
