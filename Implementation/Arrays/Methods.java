@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Methods {
@@ -240,6 +241,31 @@ public class Methods {
 			if (!set.add(arr2[i++]))
 				return false;
 		return true;
+	}
+	
+	
+	/** https://www.geeksforgeeks.org/find-itinerary-from-a-given-list-of-tickets/
+	 * Given a list of tickets, find itinerary in order using the given list. 
+	 */
+	public static void printItinerary(HashMap<String, String> map) {
+		Map<String, String> rev_map = new HashMap<String, String>();
+		for (Map.Entry<String, String> entry : map.entrySet())
+			rev_map.put(entry.getValue(), entry.getKey());
+		
+		String start = null;
+		
+		// find starting point: city with no "in" arrow: city who is only key, not value
+		for (Map.Entry<String, String> entry : map.entrySet()) 
+			if (!rev_map.containsKey(entry.getKey())) {
+				start = entry.getKey();
+				break;
+			}
+		
+		while (map.containsKey(start)) {
+			String next_city = map.get(start);
+			System.out.println(start + " -> " + next_city);
+			start = next_city;
+		}
 	}
 	
 	public static void printArr(int[] arr) {

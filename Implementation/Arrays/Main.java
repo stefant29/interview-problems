@@ -1,5 +1,7 @@
 package Arrays;
 
+import java.util.HashMap;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -56,5 +58,13 @@ public class Main {
 		System.out.println(Methods.distinctSets(new int[] {12, 34, 11, 9, 3}, new int[] {2, 1, 3, 5}));
 		System.out.println(Methods.distinctSets(new int[] {12, 34, 11, 9, 3}, new int[] {7, 2, 1, 5}));
 		System.out.println("============");
+		
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("Chennai", "Banglore");
+		map.put("Bombay", "Delhi");
+		map.put("Goa", "Chennai");
+		map.put("Delhi", "Goa");
+		Methods.printItinerary(map);
 	}
 }
