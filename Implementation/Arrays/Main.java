@@ -66,5 +66,16 @@ public class Main {
 		map.put("Goa", "Chennai");
 		map.put("Delhi", "Goa");
 		Methods.printItinerary(map);
+		System.out.println("============");
+
+		
+		HashMap<String, String> map2 = new HashMap<String, String>();
+		map2.put("A", "C");
+		map2.put("B", "C");
+		map2.put("C", "F");
+		map2.put("D", "E");
+		map2.put("E", "F");
+		map2.put("F", "F");
+		System.out.println(Methods.getNoEmployees(map2));
 	}
 }

@@ -2,10 +2,13 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
+import java.util.TreeMap;
 
 public class Methods {
 	/**
@@ -276,5 +279,64 @@ public class Methods {
 			System.out.println(arr[arr.length-1] + "]");
 		else
 			System.out.println("]");
+	}
+
+	/** https://www.geeksforgeeks.org/find-number-of-employees-under-every-manager/
+	 * Given a dictionary that contains mapping of employee and his manager as a number of (employee, manager) pairs like below.
+		{ "A", "C" },
+		{ "B", "C" },
+		{ "C", "F" },
+		{ "D", "E" },
+		{ "E", "F" },
+		{ "F", "F" } 
+		
+		In this example C is manager of A, C is also manager of B, F is manager of C and so on.
+		Write a function to get no of employees under each manager in the hierarchy not just their direct reports. 
+		It may be assumed that an employee directly reports to only one manager. 
+		In the above dictionary the root node/ceo is listed as reporting to himself.
+		
+		Output should be a Dictionary that contains following.
+		A - 0  
+		B - 0
+		C - 2
+		D - 0
+		E - 1
+		F - 5 
+	 */
+	public static HashMap<String, Integer> getNoEmployees(HashMap<String, String> map2) {
+		HashMap<String, Set<String>> managers = new HashMap<String, Set<String>>();
+		String boss = null;
+		for (Map.Entry<String, String> entry : map2.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			if (key.equals(value)) {
+				boss = key;
+				continue;
+			}
+			Set<String> set;
+			if (managers.containsKey(value))
+				set = managers.get(value);
+			else
+				set = new HashSet<String>();
+			set.add(key);
+			managers.put(value, set);
+		}
+		
+		HashMap<String, Integer> result = new HashMap<String, Integer>();
+		for (Map.Entry<String, String> entry : map2.entrySet()) {
+			Stack<String> employees = new Stack<String>();
+			int i = 0;
+			employees.push(entry.getKey());
+			while (!employees.isEmpty()) {
+				String crt = employees.pop();
+				if (managers.containsKey(crt))
+					for (String employee : managers.get(crt))
+						employees.push(employee);
+				i++;
+			}
+			result.put(entry.getKey(), i-1);
+		}
+		
+		return result;
 	}
 }
