@@ -304,6 +304,7 @@ public class Methods {
 		F - 5 
 	 */
 	public static HashMap<String, Integer> getNoEmployees(HashMap<String, String> map2) {
+		/*
 		HashMap<String, Set<String>> managers = new HashMap<String, Set<String>>();
 		String boss = null;
 		for (Map.Entry<String, String> entry : map2.entrySet()) {
@@ -338,5 +339,24 @@ public class Methods {
 		}
 		
 		return result;
+		*/
+		
+		// O(N)
+		HashMap<String, Integer> managers = new HashMap<String, Integer>();
+		for (Map.Entry<String, String> entry : map2.entrySet()) {
+			String employee = entry.getKey();
+			String manager = entry.getValue();
+			if (employee.equals(manager))
+				continue;
+			// add employee to list
+			if (!managers.containsKey(employee))
+				managers.put(employee, 0);
+			// get the previous number of employees for the current manager
+			int prev_no_manager = 0;
+			if (managers.containsKey(manager))
+				prev_no_manager = managers.get(manager);
+			managers.put(manager, prev_no_manager + managers.get(employee) + 1);
+		}
+		return managers;
 	}
 }
