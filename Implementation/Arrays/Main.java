@@ -77,5 +77,16 @@ public class Main {
 		map2.put("E", "F");
 		map2.put("F", "F");
 		System.out.println(Methods.getNoEmployees(map2));
+		System.out.println("============");
+		
+		
+		int arr[] = { 92, 75, 65, 48, 45, 35 };
+        int k = 10;
+        boolean ans = Methods.pairSumDivK(arr, k);
+        if (ans)
+            System.out.println("True");
+        else
+            System.out.println("False");
+        System.out.println("============");
 	}
 }

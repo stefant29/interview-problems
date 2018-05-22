@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -83,7 +84,7 @@ public class Methods {
 					System.out.println(i);
 			}
 	}
-	/** Extend the above solution to work for input matrix where all elements of a row don’t have be distinct.
+	/** Extend the above solution to work for input matrix where all elements of a row donï¿½t have be distinct.
 	 */
 	public static void findPermutedRowsNotDiff(int n, int m, int[][] mat, int row) {
 		HashMap<Integer, Integer> row_elements = new HashMap<Integer, Integer>();
@@ -182,7 +183,7 @@ public class Methods {
 	 * where all elements are in range from 0 to n-1. The order of elements is same, 
 	 * i.e., 0 is placed in place of smallest element, 
 	 * 1 is placed for second smallest element, 
-	 * … n-1 is placed for largest element.
+	 * ï¿½ n-1 is placed for largest element.
 	 */
 	public static int[] reduceArray(int[] arr) {
 		int[] new_arr = new int[arr.length];
@@ -358,5 +359,46 @@ public class Methods {
 			managers.put(manager, prev_no_manager + managers.get(employee) + 1);
 		}
 		return managers;
+	}
+	
+	
+	
+	/** https://www.geeksforgeeks.org/check-if-an-array-can-be-divided-into-pairs-whose-sum-is-divisible-by-k/
+	 * Given an array of integers and a number k, write a function that returns true if given array can be divided 
+	 * into pairs such that sum of every pair is divisible by k.
+	 */
+	public static boolean pairSumDivK(int[] arr, int k) {
+		// pairs of two elements must exist
+		if (arr.length % 2 == 1)
+			return false;
+		
+		// create table with rests
+		Hashtable<Integer, Integer> rests = new Hashtable<Integer, Integer>();
+		for (int i : arr) {
+			int rest = i % k;
+			if (rests.containsKey(rest))
+				rests.replace(rest, rests.get(rest)+1);
+			else
+				rests.put(rest, 1);
+		}
+		
+		for (int i : arr) {
+			int rest = i % k;
+			// if rest splits k in half
+			if (rest * 2 == k) {
+				// there must be at least two elements (even number) that sum up to k
+				if (rests.get(rest) % 2 == 1)
+					return false;
+			// if rest is 0
+			} else if (rest == 0) {
+				// there must be at least two elements (even number) that have rest = 0
+				if (rests.get(rest) % 2 == 1)
+					return false;
+			// else, rest must be equal for both rest and k-rest
+			} else if (rests.get(rest) != rests.get(k-rest))
+				return false;
+		}
+		
+		return true;
 	}
 }
