@@ -401,4 +401,36 @@ public class Methods {
 		
 		return true;
 	}
+	
+	/** https://www.geeksforgeeks.org/find-four-elements-a-b-c-and-d-in-an-array-such-that-ab-cd/
+	 * 
+	 */
+	public static boolean findSumFourElem(int[] arr) {
+		HashMap<Integer, Pair> sum = new HashMap<Integer, Pair>();
+		for (int i = 0; i < arr.length-1; i++)
+			for (int j = i+1; j < arr.length; j++) {
+				int crt_sum = arr[i] + arr[j];
+				if (sum.containsKey(crt_sum)) {
+					System.out.println(sum.get(crt_sum) + " = " + arr[i] + " + " + arr[j]);
+					return true;
+				}
+				sum.put(crt_sum, new Pair<Integer>(arr[i], arr[j]));
+			}
+		
+		
+		
+		return false;
+	}
+	
+	static class Pair<T> {
+		T a,b;
+		public Pair(T a, T b) {
+			this.a = a;
+			this.b = b;
+		}
+		@Override
+		public String toString() {
+	 		return "(" + a + ", " + b + ")";
+		}
+	}
 }

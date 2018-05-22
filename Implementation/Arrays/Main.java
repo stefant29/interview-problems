@@ -80,13 +80,27 @@ public class Main {
 		System.out.println("============");
 		
 		
-		int arr[] = { 92, 75, 65, 48, 45, 35 };
+		int arr2[] = { 92, 75, 65, 48, 45, 35 };
         int k = 10;
-        boolean ans = Methods.pairSumDivK(arr, k);
+        boolean ans = Methods.pairSumDivK(arr2, k);
         if (ans)
             System.out.println("True");
         else
             System.out.println("False");
         System.out.println("============");
+        
+        
+        int arr3[] = {3, 4, 7, 1, 2, 9, 8};
+        System.out.println(Methods.findSumFourElem(arr3));
+        System.out.println("============");
+
+        
+//        System.out.println("============");
+//        System.out.println("============");
+//        System.out.println("============");
+//        System.out.println("============");
+//        System.out.println("============");
+//        System.out.println("============");
+
 	}
 }
