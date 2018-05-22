@@ -448,8 +448,32 @@ public class Methods {
 		return max_len;
 	}
 	
-	
-	
+	/** https://www.geeksforgeeks.org/longest-consecutive-subsequence/
+	 * Given an array of integers, find the length of the longest sub-sequence
+	 * such that elements in the subsequence are consecutive integers, 
+	 * the consecutive numbers can be in any order.
+	 */
+	public static int longestConsecutiveSubsequence(int[] arr) {
+		// O(NlogN): 1. sort the array 
+		// 			 2. and find the longest subsequence of consecutive numbers
+		Arrays.sort(arr);
+		int longest_streak = 0;
+		for (int i = 0; i < arr.length-1; i++) {
+			int crt_streak = 1;
+			while (i < arr.length && arr[i+1]==arr[i] + 1) {
+				crt_streak++;
+				i++;
+			}
+			if (crt_streak != 1) {
+				if (longest_streak < crt_streak)
+					longest_streak = crt_streak;
+				i--;
+			}
+		}
+		
+		return longest_streak;
+
+	}
 	
 	
 	
