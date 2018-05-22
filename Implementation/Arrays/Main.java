@@ -94,6 +94,9 @@ public class Main {
         System.out.println(Methods.findSumFourElem(arr3));
         System.out.println("============");
 
+        System.out.println(Methods.largestSubarraySumZero(new int[] {15, -2, 2, -8, 1, 7, 10, 23}));
+        System.out.println(Methods.largestSubarraySumZero(new int[] {1, 2, 3}));
+        System.out.println(Methods.largestSubarraySumZero(new int[] {1, 0, 3}));
         
 //        System.out.println("============");
 //        System.out.println("============");

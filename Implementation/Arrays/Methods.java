@@ -422,6 +422,37 @@ public class Methods {
 		return false;
 	}
 	
+	/** https://www.geeksforgeeks.org/find-the-largest-subarray-with-0-sum/
+	 * Given an array of integers, find length of the largest subarray with sum equals to 0. 
+	 * Solution: create a hashMap and store as key the sums of all elements from 0 to i,
+	 * 		and values, the index.
+	 * 		If a sum was previously added to the hashMap, then some elements summed up to 0
+	 * 		and we subtract the index of previous sum from current index to find the length
+	 * 		of the largest subarray.
+	 */
+	public static int largestSubarraySumZero(int[] arr) {
+		int sum = 0;
+		int max_len = 0;
+		HashMap<Integer, Integer> sum_index = new HashMap<Integer, Integer>();
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+			
+			if (sum == 0)
+				max_len = i + 1;
+			
+			if (sum_index.containsKey(sum))
+				max_len = Math.max(max_len, i-sum_index.get(sum));
+			else
+				sum_index.put(sum, i);
+		}
+		return max_len;
+	}
+	
+	
+	
+	
+	
+	
 	static class Pair<T> {
 		T a,b;
 		public Pair(T a, T b) {
