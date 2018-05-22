@@ -456,6 +456,7 @@ public class Methods {
 	public static int longestConsecutiveSubsequence(int[] arr) {
 		// O(NlogN): 1. sort the array 
 		// 			 2. and find the longest subsequence of consecutive numbers
+		/*
 		Arrays.sort(arr);
 		int longest_streak = 0;
 		for (int i = 0; i < arr.length-1; i++) {
@@ -472,7 +473,26 @@ public class Methods {
 		}
 		
 		return longest_streak;
-
+		*/
+		
+		// O(N): 1. Add all elements into a set, for fast access
+		//		 2. For every element in the set, if there is no element smaller (by 1)
+		//			find all elements consecutive starting with crt elements.
+		int longest_streak = 0;
+		Set<Integer> arr_set = new HashSet<Integer>();
+		for (int i : arr)
+			arr_set.add(i);
+		
+		for (int crt_el : arr_set)
+			if (!arr_set.contains(crt_el-1)) {
+				int crt_streak = 0;
+				while (arr_set.contains(crt_el++))
+					crt_streak++;
+				if (longest_streak < crt_streak)
+					longest_streak = crt_streak;
+			}
+		
+		return longest_streak;
 	}
 	
 	
