@@ -101,9 +101,10 @@ public class Main {
         
         System.out.println(Methods.longestConsecutiveSubsequence(new int[] {1, 9, 3, 10, 4, 20, 2}));
         System.out.println(Methods.longestConsecutiveSubsequence(new int[] {36, 41, 56, 35, 44, 33, 34, 92, 43, 32, 42}));
-//        System.out.println(Methods.longestConsecutiveSubsequence(new int[] {1, 9, 3, 10, 4, 20, 2}));
-//        System.out.println("============");
-//        System.out.println("============");
+        System.out.println("============");
+        
+        Methods.countDistinctInWindowK(new int[]  {1, 2, 1, 3, 4, 2, 3}, 4);
+        System.out.println("============");
 //        System.out.println("============");
 //        System.out.println("============");
 //        System.out.println("============");

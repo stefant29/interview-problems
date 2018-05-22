@@ -496,6 +496,57 @@ public class Methods {
 	}
 	
 	
+	/** https://www.geeksforgeeks.org/count-distinct-elements-in-every-window-of-size-k/
+	 * Given an array of size n and an integer k, 
+	 * return the of count of distinct numbers in all windows of size k.
+	 */
+	public static void countDistinctInWindowK(int[] arr, int k) {
+		if (k > arr.length)
+			return;
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		int distinct_elems = 0;
+		for (int i = 0; i < k; i++) {
+			if (!map.containsKey(arr[i])) {
+				distinct_elems++;
+				map.put(arr[i], 1);
+			} else
+				map.put(arr[i], map.get(arr[i])+1);
+		}
+		
+		// print solution
+		for (int j = 0; j < k; j++)
+			System.out.print(arr[j] + ", ");
+		System.out.println("\t- " + distinct_elems);
+
+		for (int i = 1; i <= arr.length - k; i++) {
+			// removing elements arr[i-1]
+			if (map.get(arr[i-1])>1)
+				map.replace(arr[i-1], map.get(arr[i-1])-1);
+			else {
+				map.remove(arr[i-1]);
+				distinct_elems--;
+			}
+			
+			// adding crt element
+			if (map.containsKey(arr[i+k-1]))
+				map.replace(arr[i+k-1], map.get(arr[i+k-1])+1);
+			else {
+				map.put(arr[i+k-1], 1);
+				distinct_elems++;
+			}
+			
+			// print solution
+			for (int j = i; j < i + k; j++)
+				System.out.print(arr[j] + ", ");
+			System.out.println("\t- " + distinct_elems);
+		}
+		
+		
+		
+		
+	}
+	
+	
 	
 	static class Pair<T> {
 		T a,b;
