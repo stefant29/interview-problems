@@ -135,7 +135,10 @@ public class Main {
         System.out.println("============");
         
         
-        
+//        System.out.println(Methods.largestContiguosSubarray(new int[] {20, 22, 21, 10, 12, 14, 11, 13}));
+        System.out.println(Methods.largestContiguosSubarray(new int[] {12, 4, 56, 8, 10, 11, 13, 14}));
+//        System.out.println(Methods.largestContiguosSubarray(new int[] {14, 12, 11, 20}));
+//        System.out.println(Methods.largestContiguosSubarray(new int[] {1, 56, 58, 57, 90, 92, 94, 93, 91, 45}));
         
 //        System.out.println("============");
 //        System.out.println("============");

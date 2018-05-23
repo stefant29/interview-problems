@@ -2,6 +2,8 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -596,7 +598,8 @@ public class Methods {
 		}
 	}
 	
-	
+
+
 	static class Pair<T> {
 		T a,b;
 		public Pair(T a, T b) {
@@ -608,4 +611,89 @@ public class Methods {
 	 		return "(" + a + ", " + b + ")";
 		}
 	}
+
+	/** https://www.geeksforgeeks.org/length-largest-subarray-contiguous-elements-set-1/
+	 * Given an array of distinct integers, 
+	 *  find length of the longest subarray which contains numbers
+	 *  that can be arranged in a continuous sequence.
+	 */
+	public static int largestContiguosSubarray(int[] arr) {
+		PairInt[] arr_pair = new PairInt[arr.length];
+		// store elements into array of pairs: <elem, index>
+		for (int i = 0; i < arr.length; i++)
+			arr_pair[i] = new PairInt(arr[i], i);
+		// sort by elems
+		Arrays.sort(arr_pair, new Comparator<Object>() {
+			@Override
+			public int compare(Object o1, Object o2) {
+				int o1a = ((PairInt) o1).a;
+				int o2a = ((PairInt) o2).a;
+				return o1a > o2a ? 1 : o1a == o2a ? 0 : -1;
+			}
+		});
+
+		// find largest subsequence: for every element
+		int largestSequence = 0;
+		for (int i = 0; i < arr_pair.length-1; i++) {
+			int j = i;
+			int sum = arr_pair[i].b;
+			// find the consecutive 
+			while (j+1 < arr_pair.length && arr_pair[j].a + 1 == arr_pair[j+1].a) {
+				int diff = j-i+1;
+				sum += arr_pair[j+1].b;
+				float ma = 1.0f * sum / (diff+1);
+				if (ma == arr_pair[i].b + diff * 0.5 || ma == arr_pair[i].b - diff * 0.5)
+					largestSequence = Math.max(largestSequence, diff+1);
+				j++;
+			}
+			if (sum != arr_pair[i].b)
+				i = j;
+		}
+			
+		return largestSequence;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
