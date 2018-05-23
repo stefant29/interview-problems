@@ -652,48 +652,32 @@ public class Methods {
 			
 		return largestSequence;
 	}
+	
+	public static int largestContiguosSubarray2(int[] arr) {
+		int largestSequence = 0;
+		for (int i = 0; i < arr.length-1; i++) {
+			int min_el = arr[i];
+			int max_el = arr[i];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			for (int j = i+1; j < arr.length; j++) {
+				// update max element in crt subarray
+				if (arr[j] > max_el)
+					max_el = arr[j];
+				// update min element in crt subarray
+				if (arr[j] < min_el)
+					min_el = arr[j];
+				// update largest sequence
+				if (max_el - min_el == j-i)
+					largestSequence = Math.max(largestSequence, j-i+1);
+			}
+		}
+		
+		return largestSequence;	
+	}
+/*
+        System.out.println(Methods.largestContiguosSubarray2(new int[] {20, 22, 21, 10, 12, 14, 11, 13}));
+        System.out.println(Methods.largestContiguosSubarray2(new int[] {12, 4, 56, 8, 10, 11, 13, 14}));
+        {14, 12, 11, 20};
+        System.out.println(Methods.largestContiguosSubarray2(new int[] {1, 56, 58, 57, 90, 92, 94, 93, 91, 45}));
+ */
 }
