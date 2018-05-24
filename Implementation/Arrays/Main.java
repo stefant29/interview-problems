@@ -147,6 +147,18 @@ public class Main {
         System.out.println(Methods.largestContiguosSubarray2(new int[] {14, 12, 11, 20}));
         System.out.println(Methods.largestContiguosSubarray2(new int[] {1, 56, 58, 57, 90, 92, 94, 93, 91, 45}));
         System.out.println("============");
+        
+        System.out.println(Methods.containsSubarraySum0(new int[] {4, 2, -3, 1, 6} ));
+        System.out.println(Methods.containsSubarraySum0(new int[] {4, 2, 0, 1, 6} ));
+        System.out.println(Methods.containsSubarraySum0(new int[] {-3, 2, 3, 1, 6}));
+        System.out.println("============");
+        
+        
+        
+//        System.out.println("============");
+//        System.out.println("============");
+//        System.out.println("============");
+//        System.out.println("============");
 
 	}
 }

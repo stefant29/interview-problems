@@ -674,10 +674,28 @@ public class Methods {
 		
 		return largestSequence;	
 	}
-/*
-        System.out.println(Methods.largestContiguosSubarray2(new int[] {20, 22, 21, 10, 12, 14, 11, 13}));
-        System.out.println(Methods.largestContiguosSubarray2(new int[] {12, 4, 56, 8, 10, 11, 13, 14}));
-        {14, 12, 11, 20};
-        System.out.println(Methods.largestContiguosSubarray2(new int[] {1, 56, 58, 57, 90, 92, 94, 93, 91, 45}));
- */
+
+	/** https://www.geeksforgeeks.org/find-if-there-is-a-subarray-with-0-sum/
+	 * Given an array of positive and negative numbers, 
+	 * find if there is a subarray (of size at-least one) with 0 sum.
+	 */
+	public static boolean containsSubarraySum0(int[] arr) {
+		Set<Integer> set = new HashSet<Integer>();
+		int sum = 0;
+		// store all sums into a set
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+			
+			if (sum == 0)
+				return true;
+			
+			// if sum already present in the set, then some elements reduced one another
+			// -> they sum up to zero -> return true
+			if (set.add(sum) == false)
+				return true;
+		}
+		
+		// there is no subarray which sum up to zero
+		return false;
+	}
 }
