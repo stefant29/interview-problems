@@ -105,7 +105,38 @@ public class Main {
         
         Methods.countDistinctInWindowK(new int[]  {1, 2, 1, 3, 4, 2, 3}, 4);
         System.out.println("============");
-//        System.out.println("============");
+        
+        Methods.ConstDS constDS = new Methods.ConstDS();
+        constDS.instert(1);
+        System.out.println(constDS);
+        constDS.instert(2);
+        System.out.println(constDS);
+        constDS.instert(3);
+        System.out.println(constDS);
+        constDS.instert(4);
+        System.out.println(constDS);
+        constDS.instert(1);
+        System.out.println(constDS);
+        constDS.instert(5);
+        System.out.println(constDS);
+        constDS.instert(6);
+        System.out.println(constDS);
+        constDS.instert(7);
+        System.out.println(constDS);
+        constDS.remove(3);
+        System.out.println(constDS);
+        System.out.println("random: " + constDS.getRandom());
+        System.out.println("random: " + constDS.getRandom());
+        System.out.println("random: " + constDS.getRandom());
+        System.out.println("search: " + constDS.search(1));
+        System.out.println("search: " + constDS.search(10));
+        System.out.println("search: " + constDS.search(53));
+        System.out.println("search: " + constDS.search(-1));
+        System.out.println("============");
+        
+        
+        
+        
 //        System.out.println("============");
 //        System.out.println("============");
 

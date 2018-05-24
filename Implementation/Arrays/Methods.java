@@ -2,14 +2,12 @@ package Arrays;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
-import java.util.Stack;
-import java.util.TreeMap;
 
 public class Methods {
 	/**
@@ -84,7 +82,7 @@ public class Methods {
 					System.out.println(i);
 			}
 	}
-	/** Extend the above solution to work for input matrix where all elements of a row don�t have be distinct.
+	/** Extend the above solution to work for input matrix where all elements of a row donï¿½t have be distinct.
 	 */
 	public static void findPermutedRowsNotDiff(int n, int m, int[][] mat, int row) {
 		HashMap<Integer, Integer> row_elements = new HashMap<Integer, Integer>();
@@ -183,7 +181,7 @@ public class Methods {
 	 * where all elements are in range from 0 to n-1. The order of elements is same, 
 	 * i.e., 0 is placed in place of smallest element, 
 	 * 1 is placed for second smallest element, 
-	 * � n-1 is placed for largest element.
+	 * ï¿½ n-1 is placed for largest element.
 	 */
 	public static int[] reduceArray(int[] arr) {
 		int[] new_arr = new int[arr.length];
@@ -540,12 +538,63 @@ public class Methods {
 				System.out.print(arr[j] + ", ");
 			System.out.println("\t- " + distinct_elems);
 		}
-		
-		
-		
-		
 	}
 	
+	
+	/** https://www.geeksforgeeks.org/design-a-data-structure-that-supports-insert-delete-search-and-getrandom-in-constant-time/
+	 * Design a data structure that supports following operations in Θ(1) time.
+		insert(x): Inserts an item x to the data structure if not already present.
+		remove(x): Removes an item x from the data structure if present.
+		search(x): Searches an item x in the data structure.
+		getRandom(): Returns a random element from current set of elements
+	*/
+	public static class ConstDS {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		int len = 0;
+		
+		public void instert(int x) {
+			if (map.containsKey(x))
+				return;
+			list.add(len, x);
+			map.put(x, len);
+			len++;
+		}
+		
+		public boolean remove(int x) {
+			if (!map.containsKey(x))
+				return false;
+			
+			// swap x with last element in list
+			int last = list.get(len-1);
+			list.set(map.get(x), last);
+			list.set(len-1, x);
+			// remove x from list in O(1)
+			list.remove(len-1);
+
+			// update index of last element in map
+			map.replace(last, map.get(x));
+			// remove x from map
+			map.remove(x);
+
+			len--;
+			
+			return true;
+		}
+		
+		public boolean search(int x) {
+			return map.containsKey(x);
+		}
+		
+		public int getRandom() {
+			return list.get(new Random().nextInt(list.size()));
+		}
+		
+		@Override
+		public String toString() {
+			return list.toString();
+		}
+	}
 	
 	
 	static class Pair<T> {
