@@ -698,4 +698,28 @@ public class Methods {
 		// there is no subarray which sum up to zero
 		return false;
 	}
+	
+	
+	/** https://www.geeksforgeeks.org/print-all-subarrays-with-0-sum/
+	 * Given an array, print all subarrays in the array which has sum 0.
+	 */
+	public static void printSubarraysSum0(int[] arr) {
+		HashMap<Integer, Integer> map_elem = new HashMap<Integer, Integer>();
+		int sum = 0;
+		for (int i = 0; i < arr.length; i++) {
+			sum += arr[i];
+			if (sum == 0) {
+				for (int j = 0; j <= i; j++) 
+					System.out.print(arr[j] + ", ");
+				System.out.println();
+			}
+			
+			if (map_elem.containsKey(sum)) {
+				for (int j = map_elem.get(sum)+1; j <= i; j++)
+					System.out.print(arr[j] + ", ");
+				System.out.println();
+			}
+			map_elem.put(sum,  i);
+		}
+	}
 }
