@@ -722,4 +722,50 @@ public class Methods {
 			map_elem.put(sum,  i);
 		}
 	}
+	
+	
+	/**
+	 * Given an array of strings (all lowercase letters), 
+	 * the task is to group them in such a way that all strings in a group 
+	 * are shifted versions of each other. 
+	 * Two string S and T are called shifted if:
+	 * 		S.length = T.length 
+	 * 		S[i] = T[i] + K for 1 <= i <= S.length  for a constant integer K
+	 * For example strings {acd, dfg, wyz, yab, mop} are shifted versions of each other.
+	 */
+	public static void groupShiftedStrings(String[] arr) {
+		/**
+		 * construct a map with differences between letters and words
+		 * that have the same differences
+		 * 
+		 * "acd" has differences a-c -> 2, c-d -> 1
+		 * "dfg" has differences d-f -> 2, f-g -> 1  =>  they are shifted 
+		 */
+		HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+		for (String i : arr) {
+			StringBuilder sb = new StringBuilder();
+			for (int j = 0; j < i.length()-1; j++) {
+				int diff1 = (26 + i.charAt(j+1) - i.charAt(j)) % 26;
+				sb.append(diff1);
+			}
+			
+			if (sb.length() == 0)
+				sb.append("1");
+			
+			if (!map.containsKey(sb.toString())) {
+				ArrayList<String> arr_list = new ArrayList<String>();
+				arr_list.add(i);
+				map.put(sb.toString(), arr_list);
+			} else 
+				map.get(sb.toString()).add(i);
+		}
+		
+		for (Map.Entry<String, ArrayList<String>> entry : map.entrySet())
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+	}
+	
+	
+	
+	
+	
 }

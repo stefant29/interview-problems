@@ -158,7 +158,13 @@ public class Main {
         Methods.printSubarraysSum0(new int[] {2, 1, -1, 3});
         Methods.printSubarraysSum0(new int[] {6, 3, -1, -3, 4, -2, 2, 4, 6, -12, -7});
         System.out.println("============");
-//        System.out.println("============");
+        
+        Methods.groupShiftedStrings(new String[] {"acd", "dfg", "wyz", "yab", "mop"});
+        System.out.println("------------");        
+        Methods.groupShiftedStrings(new String[] {"acd", "dfg", "wyz", "yab", "mop", "bdfh", "a", "x", "moqs"});
+        System.out.println("============");
+        
+        
 //        System.out.println("============");
 //        System.out.println("============");
 
