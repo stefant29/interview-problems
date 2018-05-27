@@ -9,5 +9,10 @@ public class Main {
 		System.out.println(Methods.maxOccuringChar("tesstes"));
 		System.out.println(Methods.maxOccuringChar("tesstet"));
 		System.out.println(Methods.maxOccuringChar("sample string"));
+		System.out.println("==============");
+		
+		
+		Methods.modifyToPalindrome();
+//		System.out.println("==============");
 	}
 }

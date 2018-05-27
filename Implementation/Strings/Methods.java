@@ -22,4 +22,74 @@ public class Methods {
 		
 		return (char) maxIndex;
 	}
+	
+	
+
+	static int diff;
+	public static void modifyToPalindrome() {
+		/**
+		 Input : str = “geeks”  Q = 2
+	        query 1: i1 = 3 ,i2 = 0, ch = ‘e’
+	        query 2: i1 = 0 ,i2 = 2 , ch = ‘s’
+		 */
+		diff = 0;
+		String str = "geeks";
+		for(int k = 0; k < str.length() / 2; k++)
+			if (str.charAt(k) != str.charAt(str.length() - k - 1))
+				diff++;
+		
+		str = modifyString(str, 3, 0, 'e');
+		str = modifyString(str, 0, 2, 's');
+		
+		System.out.println("---------");
+		
+		/**
+		Input : str = “jasonamat”  Q = 3
+		        query 1: i1 = 3, i2 = 8 ch = ‘j’
+		        query 2: i1 = 2, i2 = 6 ch = ‘n’
+		        query 3: i1 = 3, i2 = 7 ch = ‘a’
+		Output :
+		       query 1: “NO”
+		       query 2: “NO”
+		       query 3: “YES”
+       	*/
+		diff = 0;
+		str = "jasonamat";
+		for(int k = 0; k < str.length() / 2; k++)
+			if (str.charAt(k) != str.charAt(str.length() - k - 1))
+				diff++;
+		
+		str = modifyString(str, 3, 8, 'j');
+		str = modifyString(str, 2, 6, 'n');
+		str = modifyString(str, 3, 7, 'a');
+	}
+	
+	public static void modifyDiff(String str, int i, Character ch) {
+		if (str.length() % 2 == 1 && i == str.length() / 2 ||
+				i > str.length() || i < 0)
+			return;
+		
+		if (str.charAt(i) == str.charAt(str.length() - i - 1) && ch != str.charAt(i))
+			diff++;
+		
+		if (str.charAt(i) != str.charAt(str.length() - i - 1) && ch == str.charAt(str.length() - i - 1))
+			diff--;
+	}
+	
+	public static String modifyString(String str, int i, int j, Character ch) {
+		StringBuilder sb = new StringBuilder(str);
+		modifyDiff(sb.toString(), i, ch);
+		sb.setCharAt(i, ch);
+
+		modifyDiff(sb.toString(), j, ch);
+		sb.setCharAt(j, ch);
+				
+		if (diff == 0)
+			System.out.println("Palindrome: " + sb.toString());
+		else
+			System.out.println("NOPE: " + sb.toString());
+		
+		return sb.toString();
+	}
+	
 }
