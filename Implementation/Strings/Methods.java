@@ -1,5 +1,7 @@
 package Strings;
 
+import javax.xml.soap.Node;
+
 public class Methods {
 	/**https://www.geeksforgeeks.org/return-maximum-occurring-character-in-the-input-string/
 	 * Write an efficient function to return maximum occurring character 
@@ -92,4 +94,34 @@ public class Methods {
 		return sb.toString();
 	}
 	
+	  static long get_no_digits(long i) {
+		  long no_digits = 0;
+	        while (i > 0) {
+	            no_digits++;
+	            i /= 10;
+	        }
+	        return no_digits;
+	    }
+	    
+	    static long get_digits(long _pow, long no_digits, long l, long m) {
+	    	long new_n = 0;
+	        // remove digits from n until we get to position h
+	        while (no_digits-- > m) {
+	            if (_pow < 0)
+	                return -1;
+	            _pow /= 10;
+	        }
+	        int digits = 0;
+	        // construct the new number with h-l digits
+	        while (m >= l) {
+	            if (_pow < 0)
+	                return -1;
+	            new_n += _pow % 10 * Math.pow(10, digits++);
+	            m--;
+	            _pow /= 10;
+	        }
+	        return new_n;
+	    }
+	    
+	   
 }

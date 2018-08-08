@@ -1,4 +1,5 @@
-public class Solution {
+
+public class BinarySearchTree {
 
 	static class Node {
 		Object info;
